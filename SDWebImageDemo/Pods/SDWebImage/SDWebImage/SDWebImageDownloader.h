@@ -19,46 +19,54 @@ typedef NS_OPTIONS(NSUInteger, SDWebImageDownloaderOptions) {
     /**
      * This flag enables progressive download, the image is displayed progressively during download as a browser would do.
      */
+//  此标志启用渐进式下载，图像在下载过程中逐步显示，就像浏览器一样。
     SDWebImageDownloaderProgressiveDownload = 1 << 1,
 
     /**
      * By default, request prevent the use of NSURLCache. With this flag, NSURLCache
      * is used with default policies.
      */
+//  默认情况下，http请求阻止使用NSURLCache对象。如果设置了这个标记，则NSURLCache会被http请求使用。
     SDWebImageDownloaderUseNSURLCache = 1 << 2,
 
     /**
      * Call completion block with nil image/imageData if the image was read from NSURLCache
      * (to be combined with `SDWebImageDownloaderUseNSURLCache`).
      */
+    //如果image/imageData是从NSURLCache返回的，则completion这个回调会返回nil
     SDWebImageDownloaderIgnoreCachedResponse = 1 << 3,
     
     /**
      * In iOS 4+, continue the download of the image if the app goes to background. This is achieved by asking the system for
      * extra time in background to let the request finish. If the background task expires the operation will be cancelled.
      */
+    //如果app进入后台模式，是否继续下载，这个是通过在后台申请时间来完成这个操作。如果指定的时间范围内没有完成，则直接取消下载。
     SDWebImageDownloaderContinueInBackground = 1 << 4,
 
     /**
      * Handles cookies stored in NSHTTPCookieStore by setting 
      * NSMutableURLRequest.HTTPShouldHandleCookies = YES;
      */
+    //处理缓存在`NSHTTPCookieStore`对象里面的cookie，通过设置`NSMutableURLRequest.HTTPShouldHandleCookies = YES`来实现的。
     SDWebImageDownloaderHandleCookies = 1 << 5,
 
     /**
      * Enable to allow untrusted SSL certificates.
      * Useful for testing purposes. Use with caution in production.
      */
+    //允许非信任的SSL证书请求。在测试的时候很有用，但是正式环境要小心使用。
     SDWebImageDownloaderAllowInvalidSSLCertificates = 1 << 6,
 
     /**
      * Put the download in the high queue priority and task priority.
      */
+    //默认情况下，图片加载的顺序是根据加入队列的顺序加载的。但是这个标记会把任务加入队列的最前面。
     SDWebImageDownloaderHighPriority = 1 << 7,
     
     /**
      * Scale down the image
      */
+    //默认情况下，图片会按照它的原始大小来解码显示。这个属性会根据设备的内存限制调整图片的尺寸到合适的大小。如果`SDWebImageProgressiveDownload`标记被设置了，则这个flag不起作用。
     SDWebImageDownloaderScaleDownLargeImages = 1 << 8,
 };
 
@@ -83,6 +91,7 @@ typedef void(^SDWebImageDownloaderCompletedBlock)(UIImage * _Nullable image, NSD
 
 typedef NSDictionary<NSString *, NSString *> SDHTTPHeadersDictionary;
 typedef NSMutableDictionary<NSString *, NSString *> SDHTTPHeadersMutableDictionary;
+
 
 typedef SDHTTPHeadersDictionary * _Nullable (^SDWebImageDownloaderHeadersFilterBlock)(NSURL * _Nullable url, SDHTTPHeadersDictionary * _Nullable headers);
 

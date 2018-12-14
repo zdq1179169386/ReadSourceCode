@@ -53,7 +53,7 @@ FOUNDATION_EXPORT NSString * _Nonnull const SDWebImageDownloadFinishNotification
  */
 @property (strong, nonatomic, readonly, nullable) NSURLSessionTask *dataTask;
 
-
+//是否解压缩图片
 @property (assign, nonatomic) BOOL shouldDecompressImages;
 
 /**
@@ -67,6 +67,7 @@ FOUNDATION_EXPORT NSString * _Nonnull const SDWebImageDownloadFinishNotification
  *
  * This will be overridden by any shared credentials that exist for the username or password of the request URL, if present.
  */
+//为请求操作设置默认的URL证书。
 @property (nonatomic, strong, nullable) NSURLCredential *credential;
 
 /**

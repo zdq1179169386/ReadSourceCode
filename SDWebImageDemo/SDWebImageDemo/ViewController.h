@@ -8,8 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NSDictionary<NSString *, NSString *> SDHTTPHeadersDictionary;
+
+
+typedef SDHTTPHeadersDictionary * _Nullable (^SDWebImageDownloaderHeadersFilterBlock)(NSURL * _Nullable url, SDHTTPHeadersDictionary * _Nullable headers);
+
+
+
 @interface ViewController : UIViewController
 
-
+@property (nonatomic, copy,nullable) SDWebImageDownloaderHeadersFilterBlock  headerBlock;
 @end
 
