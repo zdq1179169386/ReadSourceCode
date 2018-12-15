@@ -20,10 +20,13 @@ const float NSURLSessionTaskPriorityHigh = 0.75;
 const float NSURLSessionTaskPriorityDefault = 0.5;
 const float NSURLSessionTaskPriorityLow = 0.25;
 #endif
-
+//任务开始
 NSString *const SDWebImageDownloadStartNotification = @"SDWebImageDownloadStartNotification";
+//接收到数据
 NSString *const SDWebImageDownloadReceiveResponseNotification = @"SDWebImageDownloadReceiveResponseNotification";
+//暂停
 NSString *const SDWebImageDownloadStopNotification = @"SDWebImageDownloadStopNotification";
+//完成
 NSString *const SDWebImageDownloadFinishNotification = @"SDWebImageDownloadFinishNotification";
 
 static NSString *const kProgressCallbackKey = @"progress";
@@ -32,11 +35,13 @@ static NSString *const kCompletedCallbackKey = @"completed";
 typedef NSMutableDictionary<NSString *, id> SDCallbacksDictionary;
 
 @interface SDWebImageDownloaderOperation ()
-
+//存储的是当前request 下载的 进度的 progressBlock 和完成的 completedBlock。
 @property (strong, nonatomic, nonnull) NSMutableArray<SDCallbacksDictionary *> *callbackBlocks;
-
+//当前线程是否正在执行
 @property (assign, nonatomic, getter = isExecuting) BOOL executing;
+//当前线程是否完成
 @property (assign, nonatomic, getter = isFinished) BOOL finished;
+//存储图片数据
 @property (strong, nonatomic, nullable) NSMutableData *imageData;
 @property (copy, nonatomic, nullable) NSData *cachedData; // for `SDWebImageDownloaderIgnoreCachedResponse`
 
@@ -47,9 +52,10 @@ typedef NSMutableDictionary<NSString *, id> SDCallbacksDictionary;
 @property (strong, nonatomic, nullable) NSURLSession *ownedSession;
 
 @property (strong, nonatomic, readwrite, nullable) NSURLSessionTask *dataTask;
-
+//信号量
 @property (strong, nonatomic, nonnull) dispatch_semaphore_t callbacksLock; // a lock to keep the access to `callbackBlocks` thread-safe
 
+//串行队列
 @property (strong, nonatomic, nonnull) dispatch_queue_t coderQueue; // the queue to do image decoding
 #if SD_UIKIT
 @property (assign, nonatomic) UIBackgroundTaskIdentifier backgroundTaskId;
@@ -86,6 +92,12 @@ typedef NSMutableDictionary<NSString *, id> SDCallbacksDictionary;
     return self;
 }
 
+/*
+ 添加进度和完成的处理。返回一个能够传递cancel:去取消回调集合的token。
+ 注意：这个进度块在后台队列中执行。
+ 注意：完成块当成功时在主线程中执行。如果发生错误，有一次在后台队列执行的机会。
+ callbacks：存储的是当前request 下载的 进度的 progressBlock 和完成的 completedBlock。
+ */
 - (nullable id)addHandlersForProgress:(nullable SDWebImageDownloaderProgressBlock)progressBlock
                             completed:(nullable SDWebImageDownloaderCompletedBlock)completedBlock {
     SDCallbacksDictionary *callbacks = [NSMutableDictionary new];
@@ -97,18 +109,22 @@ typedef NSMutableDictionary<NSString *, id> SDCallbacksDictionary;
     return callbacks;
 }
 
+//根据key取出所有符合key的block
 - (nullable NSArray<id> *)callbacksForKey:(NSString *)key {
     LOCK(self.callbacksLock);
+//    如果key 是 kProgressCallbackKey ，那么 callbacks 就是所有进度block 的数组，如果 key 是 kCompletedCallbackKey，那么 callbacks 就是 所有完成block 的数组
     NSMutableArray<id> *callbacks = [[self.callbackBlocks valueForKey:key] mutableCopy];
     UNLOCK(self.callbacksLock);
     // We need to remove [NSNull null] because there might not always be a progress block for each callback
     [callbacks removeObjectIdenticalTo:[NSNull null]];
     return [callbacks copy]; // strip mutability here
 }
-
+//取消某一回调,token 和addHandlersForProgress:completed:方法的返回值对应
+// 但是 addHandlersForProgress 方法返回的是一个装有进度block 和完成block 的字典啊
 - (BOOL)cancel:(nullable id)token {
     BOOL shouldCancel = NO;
     LOCK(self.callbacksLock);
+//     删除数组中指定元素,根据对象的地址判断
     [self.callbackBlocks removeObjectIdenticalTo:token];
     if (self.callbackBlocks.count == 0) {
         shouldCancel = YES;
@@ -119,7 +135,9 @@ typedef NSMutableDictionary<NSString *, id> SDCallbacksDictionary;
     }
     return shouldCancel;
 }
-
+/*
+ 并不是调用了cancel就一定取消了，如果NSOperation没有执行，那么就会取消，如果执行了，只会将isCancelled设置为YES。所以，在我们的操作中，我们应该在每个操作开始前，或者在每个有意义的实际操作完成后，先检查下这个属性是不是已经设置为YES。如果是YES，则后面操作都可以不用再执行了。
+ */
 - (void)start {
     @synchronized (self) {
         if (self.isCancelled) {
@@ -132,6 +150,7 @@ typedef NSMutableDictionary<NSString *, id> SDCallbacksDictionary;
         Class UIApplicationClass = NSClassFromString(@"UIApplication");
         BOOL hasApplication = UIApplicationClass && [UIApplicationClass respondsToSelector:@selector(sharedApplication)];
         if (hasApplication && [self shouldContinueWhenAppEntersBackground]) {
+            //如果用户设置了Background模式，则设置一个backgroundTask
             __weak __typeof__ (self) wself = self;
             UIApplication * app = [UIApplicationClass performSelector:@selector(sharedApplication)];
             self.backgroundTaskId = [app beginBackgroundTaskWithExpirationHandler:^{
@@ -148,6 +167,7 @@ typedef NSMutableDictionary<NSString *, id> SDCallbacksDictionary;
 #endif
         NSURLSession *session = self.unownedSession;
         if (!session) {
+            //如果SDWebImageDownloader传入的session是nil，则自己手动初始化一个
             NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
             sessionConfig.timeoutIntervalForRequest = 15;
             
@@ -219,18 +239,19 @@ typedef NSMutableDictionary<NSString *, id> SDCallbacksDictionary;
     }
 #endif
 }
-
+// SDWebImageOperation 协议
 - (void)cancel {
     @synchronized (self) {
         [self cancelInternal];
     }
 }
-
+//内部取消
 - (void)cancelInternal {
     if (self.isFinished) return;
     [super cancel];
 
     if (self.dataTask) {
+//      取消 task
         [self.dataTask cancel];
         __weak typeof(self) weakSelf = self;
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -259,6 +280,7 @@ typedef NSMutableDictionary<NSString *, id> SDCallbacksDictionary;
     self.dataTask = nil;
     
     if (self.ownedSession) {
+//    调用了 invalidateAndCancel 会先执行 SDWebImageDownloader 中的 didCompleteWithError：方法，然后它会做个轮询，找到对应的operation 转发，传递到本类中 didCompleteWithError ：的方法中
         [self.ownedSession invalidateAndCancel];
         self.ownedSession = nil;
     }

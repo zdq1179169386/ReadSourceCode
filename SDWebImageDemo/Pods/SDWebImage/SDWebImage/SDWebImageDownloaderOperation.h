@@ -21,18 +21,19 @@ FOUNDATION_EXPORT NSString * _Nonnull const SDWebImageDownloadFinishNotification
  Describes a downloader operation. If one wants to use a custom downloader op, it needs to inherit from `NSOperation` and conform to this protocol
  For the description about these methods, see `SDWebImageDownloaderOperation`
  */
+//SDWebImageDownloader 中的 operationClass 可以设置成自定义的 operation ，但必须实现这个 SDWebImageDownloaderOperationInterface 协议
 @protocol SDWebImageDownloaderOperationInterface<NSObject>
 
 - (nonnull instancetype)initWithRequest:(nullable NSURLRequest *)request
                               inSession:(nullable NSURLSession *)session
                                 options:(SDWebImageDownloaderOptions)options;
-
+//给Operation添加进度和回调Block
 - (nullable id)addHandlersForProgress:(nullable SDWebImageDownloaderProgressBlock)progressBlock
                             completed:(nullable SDWebImageDownloaderCompletedBlock)completedBlock;
-
+//是否需要解码
 - (BOOL)shouldDecompressImages;
 - (void)setShouldDecompressImages:(BOOL)value;
-
+//是否需要设置凭证
 - (nullable NSURLCredential *)credential;
 - (void)setCredential:(nullable NSURLCredential *)value;
 
@@ -46,20 +47,23 @@ FOUNDATION_EXPORT NSString * _Nonnull const SDWebImageDownloadFinishNotification
 /**
  * The request used by the operation's task.
  */
+//操作者的任务使用的请求
 @property (strong, nonatomic, readonly, nullable) NSURLRequest *request;
 
 /**
  * The operation's task
  */
+//操作的任务。
 @property (strong, nonatomic, readonly, nullable) NSURLSessionTask *dataTask;
 
-//是否解压缩图片
+//是否解压缩图片(来源于协议SDWebImageDownloaderOperationInterface)
 @property (assign, nonatomic) BOOL shouldDecompressImages;
 
 /**
  *  Was used to determine whether the URL connection should consult the credential storage for authenticating the connection.
  *  @deprecated Not used for a couple of versions
  */
+//用于判断URL连接是否应该为授权验证连接查询凭据存储。
 @property (nonatomic, assign) BOOL shouldUseCredentialStorage __deprecated_msg("Property deprecated. Does nothing. Kept only for backwards compatibility");
 
 /**
@@ -67,17 +71,19 @@ FOUNDATION_EXPORT NSString * _Nonnull const SDWebImageDownloadFinishNotification
  *
  * This will be overridden by any shared credentials that exist for the username or password of the request URL, if present.
  */
-//为请求操作设置默认的URL证书。
+//为请求操作设置默认的URL证书。(来源于协议SDWebImageDownloaderOperationInterface)
 @property (nonatomic, strong, nullable) NSURLCredential *credential;
 
 /**
  * The SDWebImageDownloaderOptions for the receiver.
  */
+//接受器使用的SDWebImageDownloaderOperations。
 @property (assign, nonatomic, readonly) SDWebImageDownloaderOptions options;
 
 /**
  * The expected size of data.
  */
+//期望的数据大小。
 @property (assign, nonatomic) NSInteger expectedSize;
 
 /**

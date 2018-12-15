@@ -339,7 +339,7 @@
         [self.downloadQueue addOperation:operation];
     }
     UNLOCK(self.operationsLock);
-//    线程id，取消线程的时候就根据这个id
+//    线程id，取消线程的时候就根据这个id，这个 downloadOperationCancelToken 实际上是一个装有进度block 和完成 block 的字典
     id downloadOperationCancelToken = [operation addHandlersForProgress:progressBlock completed:completedBlock];
     
     SDWebImageDownloadToken *token = [SDWebImageDownloadToken new];
@@ -359,7 +359,7 @@
 }
 
 #pragma mark Helper methods
-
+// 根据task 获取 task 正在执行的那个线程
 - (SDWebImageDownloaderOperation *)operationWithTask:(NSURLSessionTask *)task {
     SDWebImageDownloaderOperation *returnOperation = nil;
     for (SDWebImageDownloaderOperation *operation in self.downloadQueue.operations) {
@@ -370,9 +370,12 @@
     }
     return returnOperation;
 }
-
+/*
+ 在多张图片下载的时候，会先根据downloadUrl：方法，生成多个operation ，当 operation 加入到operationQueue 的时候，才会执行 operation 的start 方法，这时候才会根据request 生成 datatask ，调用 [datatask resume] 去执行这个下载请求。
+ 多个task 在执行的时候，根据 task 作为id 找到根据url 生成的那个operation， 将委托方法，传到对应的那个线程去执行
+ */
 #pragma mark NSURLSessionDataDelegate
-
+//接收到服务器的响应 它默认会取消该请求
 - (void)URLSession:(NSURLSession *)session
           dataTask:(NSURLSessionDataTask *)dataTask
 didReceiveResponse:(NSURLResponse *)response
@@ -388,7 +391,7 @@ didReceiveResponse:(NSURLResponse *)response
         }
     }
 }
-
+//接收到服务器返回的数据 调用多次
 - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data {
 
     // Identify the operation that runs this task and pass it the delegate method
@@ -397,7 +400,7 @@ didReceiveResponse:(NSURLResponse *)response
         [dataOperation URLSession:session dataTask:dataTask didReceiveData:data];
     }
 }
-
+//缓存数据,这里可以使用系统默认的就行，这个是要将response缓存起来
 - (void)URLSession:(NSURLSession *)session
           dataTask:(NSURLSessionDataTask *)dataTask
  willCacheResponse:(NSCachedURLResponse *)proposedResponse
@@ -415,7 +418,12 @@ didReceiveResponse:(NSURLResponse *)response
 }
 
 #pragma mark NSURLSessionTaskDelegate
-//
+//会话失效
+//通知URL会话该会话已失效。
+//如果通过调用finishTasksAndInvalidate方法使会话失效，则会话将一直等待，直到会话中的最终任务完成或失败，然后再调用此委托方法。如果您调用invalidateAndCancel方法，
+//会话将立即调用此委托方法。
+//对于每一个完成的后台Task调用该Session的Delegate中的URLSession:downloadTask:didFinishDownloadingToURL:（成功的话）
+//和URLSession:task:didCompleteWithError:（成功或者失败都会调用）方法做处理，以上的回调代码块可以在这里调用
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
     
     // Identify the operation that runs this task and pass it the delegate method
@@ -424,7 +432,8 @@ didReceiveResponse:(NSURLResponse *)response
         [dataOperation URLSession:session task:task didCompleteWithError:error];
     }
 }
-
+//告诉委托远程服务器请求HTTP重定向。
+//此方法仅适用于默认和临时会话中的任务。 后台会话中的任务会自动遵循重定向。
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task willPerformHTTPRedirection:(NSHTTPURLResponse *)response newRequest:(NSURLRequest *)request completionHandler:(void (^)(NSURLRequest * _Nullable))completionHandler {
     
     // Identify the operation that runs this task and pass it the delegate method
@@ -437,7 +446,7 @@ didReceiveResponse:(NSURLResponse *)response
         }
     }
 }
-
+//  如果服务器要求验证客户端身份或向客户端提供其证书用于验证时，则会调用
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler {
 
     // Identify the operation that runs this task and pass it the delegate method
