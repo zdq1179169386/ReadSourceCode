@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 #import <UIImageView+WebCache.h>
-
+#import <SDWebImage/SDWebImageDownloader.h>
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
@@ -20,9 +20,17 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    [self.imageView sd_setImageWithURL:[NSURL URLWithString:@"https://oss.zhihanyun.com/Fg8_VDWkEBNFVyFxlsUGavJLusyk"] placeholderImage:nil];
+//    [self.imageView sd_setImageWithURL:[NSURL URLWithString:@"https://oss.zhihanyun.com/Fg8_VDWkEBNFVyFxlsUGavJLusyk"] placeholderImage:[UIImage imageNamed:@"bc_img_placeholder"]];
     
-    [self test];
+//    当我通过 [SDWebImagePrefetcher sharedImagePrefetcher] prefetchURLs 提前下载了图片，这里就可以直接从缓存中取了。
+    NSString * cacheKey = [[SDWebImageManager sharedManager] cacheKeyForURL:[NSURL URLWithString:@"https://oss.zhihanyun.com/Fg8_VDWkEBNFVyFxlsUGavJLusyk"]];
+    self.imageView.image = [[SDImageCache sharedImageCache] imageFromCacheForKey: cacheKey];
+    
+//    [self test];
+    
+//   SDWebImageProgressiveDownload ： 渐进式解码
+//   [self.imageView sd_setImageWithURL:[NSURL URLWithString:@"https://oss.zhihanyun.com/Fg8_VDWkEBNFVyFxlsUGavJLusyk"] placeholderImage:[UIImage imageNamed:@"bc_img_placeholder"] options:(SDWebImageDelayPlaceholder)];
+    
 }
 - (void)test {
     NSString *str1 = [[NSString alloc] init];

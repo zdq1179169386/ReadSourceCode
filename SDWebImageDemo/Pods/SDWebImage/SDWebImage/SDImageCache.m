@@ -253,7 +253,7 @@ FOUNDATION_STATIC_INLINE NSUInteger SDCacheCostForImage(UIImage *image) {
         [self.customPaths addObject:path];
     }
 }
-// 根据key 用md5 加密之后，返回文件名，再拼上路径，，形成这个图片自己的路径.
+// 根据key 用md5 加密之后，返回文件名，再拼上路径，，形成这个图片自己的路径. 这个key 都是image 的 url.absoluteString ,除非你自己实现 cacheKeyFilter 这个block 
 - (nullable NSString *)cachePathForKey:(nullable NSString *)key inPath:(nonnull NSString *)path {
     NSString *filename = [self cachedFileNameForKey:key];
     return [path stringByAppendingPathComponent:filename];
@@ -437,7 +437,7 @@ FOUNDATION_STATIC_INLINE NSUInteger SDCacheCostForImage(UIImage *image) {
     
     return imageData;
 }
-//异步查询内存缓存
+//查询内存缓存
 - (nullable UIImage *)imageFromMemoryCacheForKey:(nullable NSString *)key {
     return [self.memCache objectForKey:key];
 }
@@ -577,10 +577,11 @@ FOUNDATION_STATIC_INLINE NSUInteger SDCacheCostForImage(UIImage *image) {
                 diskImage = [self diskImageForKey:key data:diskData options:options];
                 if (diskImage && self.config.shouldCacheImagesInMemory) {
                     NSUInteger cost = SDCacheCostForImage(diskImage);
+//                  从磁盘中找到之后，再加载到内存中，这样下次再加载时，就不需要再从磁盘中找了
                     [self.memCache setObject:diskImage forKey:key cost:cost];
                 }
             }
-            
+//            查询完成之后的回调
             if (doneBlock) {
                 if (options & SDImageCacheQueryDiskSync) {
                     doneBlock(diskImage, diskData, cacheType);

@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <SDWebImage/SDWebImagePrefetcher.h>
 
 @interface AppDelegate ()
 
@@ -17,7 +18,19 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+//  必须设置 这个才能测试 sdwebimage 的 NSURLCache
+//  NSURLCache ： 它的默认配置只是缓存在内存并没有写到硬盘
+    NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024
+                                                         diskCapacity:20 * 1024 * 1024
+                                                             diskPath:nil];
+    [NSURLCache setSharedURLCache:URLCache];
+
+    
+//    可以通过这个方法提前下载图片，
+    [[SDWebImagePrefetcher sharedImagePrefetcher] prefetchURLs:@[[NSURL URLWithString:@"https://oss.zhihanyun.com/Fg8_VDWkEBNFVyFxlsUGavJLusyk"]]];
     return YES;
+    
 }
 
 

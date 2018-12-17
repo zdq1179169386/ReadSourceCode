@@ -114,15 +114,19 @@ static const CGFloat kDestSeemOverlap = 2.0f;   // the numbers of pixels to over
     
     // Update the data source, we must pass ALL the data, not just the new bytes
     CGImageSourceUpdateData(_imageSource, (__bridge CFDataRef)data, finished);
-    
+    //width和height都是0的话表示还么有获取到图片的高度和宽度，我们可以通过数据来获取图片的宽度和高度。此时表示第一次收到图片数据
     if (_width + _height == 0) {
+        //获取图片数据的属性
         CFDictionaryRef properties = CGImageSourceCopyPropertiesAtIndex(_imageSource, 0, NULL);
         if (properties) {
             NSInteger orientationValue = 1;
+            //获取高度值
             CFTypeRef val = CFDictionaryGetValue(properties, kCGImagePropertyPixelHeight);
             if (val) CFNumberGetValue(val, kCFNumberLongType, &_height);
+            //获取宽度值
             val = CFDictionaryGetValue(properties, kCGImagePropertyPixelWidth);
             if (val) CFNumberGetValue(val, kCFNumberLongType, &_width);
+            //获取图片的方向值
             val = CFDictionaryGetValue(properties, kCGImagePropertyOrientation);
             if (val) CFNumberGetValue(val, kCFNumberNSIntegerType, &orientationValue);
             CFRelease(properties);
@@ -138,6 +142,7 @@ static const CGFloat kDestSeemOverlap = 2.0f;   // the numbers of pixels to over
     }
     
     if (_width + _height > 0) {
+        //这个表示已经收到部分图片数据 或者 获取到所有的图片数据
         // Create the image
         CGImageRef partialImageRef = CGImageSourceCreateImageAtIndex(_imageSource, 0, NULL);
         
@@ -181,8 +186,10 @@ static const CGFloat kDestSeemOverlap = 2.0f;   // the numbers of pixels to over
         }
     }
     if (!shouldScaleDown) {
+//        返回原始大小的图片
         return [self sd_decompressedImageWithImage:image];
     } else {
+//        返回缩小的图片
         UIImage *scaledDownImage = [self sd_decompressedAndScaledDownImageWithImage:image];
         if (scaledDownImage && !CGSizeEqualToSize(scaledDownImage.size, image.size)) {
             // if the image is scaled down, need to modify the data pointer as well
