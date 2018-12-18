@@ -363,7 +363,9 @@
 - (SDWebImageDownloaderOperation *)operationWithTask:(NSURLSessionTask *)task {
     SDWebImageDownloaderOperation *returnOperation = nil;
     for (SDWebImageDownloaderOperation *operation in self.downloadQueue.operations) {
+//
         if (operation.dataTask.taskIdentifier == task.taskIdentifier) {
+            NSLog(@"taskIdentifier= %@",@(task.taskIdentifier));
             returnOperation = operation;
             break;
         }

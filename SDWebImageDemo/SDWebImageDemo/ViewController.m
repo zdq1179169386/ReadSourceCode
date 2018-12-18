@@ -33,6 +33,8 @@
 //   SDWebImageProgressiveDownload ： 渐进式解码
    [self.imageView sd_setImageWithURL:[NSURL URLWithString:@"https://oss.zhihanyun.com/Fg8_VDWkEBNFVyFxlsUGavJLusyk"] placeholderImage:[UIImage imageNamed:@"bc_img_placeholder"] options:(SDWebImageDelayPlaceholder)];
     
+    [self.imageView sd_setImageWithURL:[NSURL URLWithString:@"https://oss.zhihanyun.com/FojDqdjvbb7LlZw2crWMDDmXuIUN?imageView2/2/w/300"]];
+    
 //  获取当前队列的名字
     NSLog(@"%s", dispatch_queue_get_label(DISPATCH_CURRENT_QUEUE_LABEL));
     

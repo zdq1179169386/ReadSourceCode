@@ -1,14 +1,13 @@
 //
 //  AppDelegate.m
-//  SDWebImageDemo
+//  AFNetWorkingDemo
 //
-//  Created by qrh on 2018/12/13.
+//  Created by qrh on 2018/12/18.
 //  Copyright © 2018 zdq. All rights reserved.
 //
 
 #import "AppDelegate.h"
-#import "SDWebImage/SDWebImagePrefetcher.h"
-
+#import "AFNetworkActivityIndicatorManager.h"
 @interface AppDelegate ()
 
 @end
@@ -18,19 +17,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
-//  必须设置 这个才能测试 sdwebimage 的 NSURLCache
-//  NSURLCache ： 它的默认配置只是缓存在内存并没有写到硬盘
-    NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024
-                                                         diskCapacity:20 * 1024 * 1024
-                                                             diskPath:nil];
+    NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024 diskCapacity:20 * 1024 * 1024 diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
-
     
-//    可以通过这个方法提前下载图片，
-//    [[SDWebImagePrefetcher sharedImagePrefetcher] prefetchURLs:@[[NSURL URLWithString:@"https://oss.zhihanyun.com/Fg8_VDWkEBNFVyFxlsUGavJLusyk"]]];
+//    状态栏上的菊花
+    [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     return YES;
-    
 }
 
 
