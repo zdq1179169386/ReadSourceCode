@@ -72,6 +72,7 @@ FOUNDATION_STATIC_INLINE NSUInteger SDCacheCostForImage(UIImage *image) {
         
         self.weakCacheLock = dispatch_semaphore_create(1);
         self.config = config;
+        //当应用收到内存警告的时候，清除内存缓存
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(didReceiveMemoryWarning:)
                                                      name:UIApplicationDidReceiveMemoryWarningNotification
@@ -191,7 +192,7 @@ FOUNDATION_STATIC_INLINE NSUInteger SDCacheCostForImage(UIImage *image) {
     NSString *path = [self makeDiskCachePath:ns];
     return [self initWithNamespace:ns diskCacheDirectory:path];
 }
-
+// 使用指定的命名空间实例化一个新的缓存存储和目录
 - (nonnull instancetype)initWithNamespace:(nonnull NSString *)ns
                        diskCacheDirectory:(nonnull NSString *)directory {
     if ((self = [super init])) {
@@ -199,14 +200,16 @@ FOUNDATION_STATIC_INLINE NSUInteger SDCacheCostForImage(UIImage *image) {
         
         // Create IO serial queue
         _ioQueue = dispatch_queue_create("com.hackemist.SDWebImageCache", DISPATCH_QUEUE_SERIAL);
-        
+        //初始化缓存策略配置对象
         _config = [[SDImageCacheConfig alloc] init];
         
         // Init the memory cache
+        // 初始化内存缓存对象
         _memCache = [[SDMemoryCache alloc] initWithConfig:_config];
         _memCache.name = fullNamespace;
 
         // Init the disk cache
+        // 初始化磁盘缓存路径
         if (directory != nil) {
             //            /Users/qrh/Library/Developer/CoreSimulator/Devices/9975C1C0-939D-44DD-9D1E-0E62598F9440/data/Containers/Data/Application/F1163A6C-6113-4676-819F-3E56875F0D03/Library/Caches/default/com.hackemist.SDWebImageCache.default
 
@@ -223,11 +226,12 @@ FOUNDATION_STATIC_INLINE NSUInteger SDCacheCostForImage(UIImage *image) {
 
 #if SD_UIKIT
         // Subscribe to app events
+        //当应用终止的时候，清除老数据
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(deleteOldFiles)
                                                      name:UIApplicationWillTerminateNotification
                                                    object:nil];
-
+        //当应用进入后台的时候，在后台删除老数据
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(backgroundDeleteOldFiles)
                                                      name:UIApplicationDidEnterBackgroundNotification
@@ -318,6 +322,7 @@ FOUNDATION_STATIC_INLINE NSUInteger SDCacheCostForImage(UIImage *image) {
     }
     
     if (toDisk) {
+        //在一个串行队列中做磁盘缓存操作
         dispatch_async(self.ioQueue, ^{
             @autoreleasepool {
                 NSData *data = imageData;
@@ -332,6 +337,7 @@ FOUNDATION_STATIC_INLINE NSUInteger SDCacheCostForImage(UIImage *image) {
                     }
                     data = [[SDWebImageCodersManager sharedInstance] encodedDataWithImage:image format:format];
                 }
+                //把处理好了的数据存入磁盘
                 [self _storeImageDataToDisk:data forKey:key];
             }
             
@@ -366,7 +372,7 @@ FOUNDATION_STATIC_INLINE NSUInteger SDCacheCostForImage(UIImage *image) {
     }
     
     if (![self.fileManager fileExistsAtPath:_diskCachePath]) {
-//        判断有没有文件夹
+        //缓存目录是否已经初始化
         [self.fileManager createDirectoryAtPath:_diskCachePath withIntermediateDirectories:YES attributes:nil error:NULL];
     }
     
@@ -480,7 +486,7 @@ FOUNDATION_STATIC_INLINE NSUInteger SDCacheCostForImage(UIImage *image) {
     if (data) {
         return data;
     }
-
+    //如果在默认路径没有找到图片，则在自定义路径迭代查找
     NSArray<NSString *> *customPaths = [self.customPaths copy];
     for (NSString *path in customPaths) {
         NSString *filePath = [self cachePathForKey:key inPath:path];
@@ -680,7 +686,10 @@ FOUNDATION_STATIC_INLINE NSUInteger SDCacheCostForImage(UIImage *image) {
 - (void)deleteOldFiles {
     [self deleteOldFilesWithCompletionBlock:nil];
 }
-//异步从硬盘移除所有已过期的图片缓存。没有块方法则直接返回。
+/*
+ 当应用终止或者进入后台都会调用这个方法来清除缓存图片
+ 这里会根据图片存储时间来清理图片，默认是一周，从最老的图片开始清理。如果图片缓存空间小于一个规定值，则不考虑
+*/
 - (void)deleteOldFilesWithCompletionBlock:(nullable SDWebImageNoParamsBlock)completionBlock {
     dispatch_async(self.ioQueue, ^{
         NSURL *diskCacheURL = [NSURL fileURLWithPath:self.diskCachePath isDirectory:YES];

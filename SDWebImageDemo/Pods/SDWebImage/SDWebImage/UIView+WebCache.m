@@ -41,7 +41,6 @@ static char TAG_ACTIVITY_SHOW;
 - (void)setSd_imageProgress:(NSProgress *)sd_imageProgress {
     objc_setAssociatedObject(self, @selector(sd_imageProgress), sd_imageProgress, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
-
 - (void)sd_internalSetImageWithURL:(nullable NSURL *)url
                   placeholderImage:(nullable UIImage *)placeholder
                            options:(SDWebImageOptions)options
@@ -51,7 +50,9 @@ static char TAG_ACTIVITY_SHOW;
                          completed:(nullable SDExternalCompletionBlock)completedBlock {
     return [self sd_internalSetImageWithURL:url placeholderImage:placeholder options:options operationKey:operationKey setImageBlock:setImageBlock progress:progressBlock completed:completedBlock context:nil];
 }
-
+// 所有UIView及其子类都是通过这个方法来加载图片
+// operationKey   操作（operation）的 key，如果为空时，将使用类名。这个主要使用来取消一个 operation，结合 UIView+WebCacheOperation.h 使用
+// setImageBlock  如果不想使用 SD 加载完图片后显示到视图上，可以使用这个 Block 自定义加载图片，这样就可以在调用加载图片的方法中加载图片
 - (void)sd_internalSetImageWithURL:(nullable NSURL *)url
                   placeholderImage:(nullable UIImage *)placeholder
                            options:(SDWebImageOptions)options
@@ -61,9 +62,11 @@ static char TAG_ACTIVITY_SHOW;
                          completed:(nullable SDExternalCompletionBlock)completedBlock
                            context:(nullable NSDictionary<NSString *, id> *)context {
     NSString *validOperationKey = operationKey ?: NSStringFromClass([self class]);
+    //取消当前类对应的所有下载Operation对象
     [self sd_cancelImageLoadOperationWithKey:validOperationKey];
+    //把UIImageView的加载图片操作和它自身用关联对象关联起来，方便后面取消等操作。关联的key就是UIImageView对应的类名
     objc_setAssociatedObject(self, &imageURLKey, url, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    
+    //如果有设置占位图，则先显示占位图
     if (!(options & SDWebImageDelayPlaceholder)) {
         dispatch_main_async_safe(^{
             [self sd_setImage:placeholder imageData:nil basedOnClassOrViaCustomSetImageBlock:setImageBlock];
@@ -73,6 +76,7 @@ static char TAG_ACTIVITY_SHOW;
     if (url) {
 #if SD_UIKIT
         // check if activityView is enabled or not
+        //如果UIImageView对象有设置添加转动菊花数据，加载的时候添加转动的菊花
         if ([self sd_showActivityIndicatorView]) {
             [self sd_addActivityIndicator];
         }
@@ -97,10 +101,12 @@ static char TAG_ACTIVITY_SHOW;
                 progressBlock(receivedSize, expectedSize, targetURL);
             }
         };
+        //operation是一个`SDWebImageCombinedOperation`对象，通过这个对象来取消下载等操作
         id <SDWebImageOperation> operation = [manager loadImageWithURL:url options:options progress:combinedProgressBlock completed:^(UIImage *image, NSData *data, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
             __strong __typeof (wself) sself = wself;
             if (!sself) { return; }
 #if SD_UIKIT
+            //停止菊花
             [sself sd_removeActivityIndicator];
 #endif
             // if the progress not been updated, mark it to complete state
@@ -124,6 +130,7 @@ static char TAG_ACTIVITY_SHOW;
             // case 1a: we got an image, but the SDWebImageAvoidAutoSetImage flag is set
             // OR
             // case 1b: we got no image and the SDWebImageDelayPlaceholder is not set
+            //如果设置了不自动显示图片，则直接调用completedBlock，让调用者处理图片的显示
             if (shouldNotSetImage) {
                 dispatch_main_async_safe(callCompletedBlockClojure);
                 return;
@@ -137,6 +144,7 @@ static char TAG_ACTIVITY_SHOW;
                 targetData = data;
             } else if (options & SDWebImageDelayPlaceholder) {
                 // case 2b: we got no image and the SDWebImageDelayPlaceholder flag is set
+                //如果设置了延迟显示占位图，则图片加载失败的情况下显示占位图
                 targetImage = placeholder;
                 targetData = nil;
             }
@@ -147,6 +155,7 @@ static char TAG_ACTIVITY_SHOW;
             if (finished && (options & SDWebImageForceTransition || cacheType == SDImageCacheTypeNone)) {
                 transition = sself.sd_imageTransition;
             }
+            //自动显示图片
 #endif
             dispatch_main_async_safe(^{
 #if SD_UIKIT || SD_MAC
@@ -159,6 +168,7 @@ static char TAG_ACTIVITY_SHOW;
         }];
         [self sd_setImageLoadOperation:operation forKey:validOperationKey];
     } else {
+        //加载失败的情况
         dispatch_main_async_safe(^{
 #if SD_UIKIT
             [self sd_removeActivityIndicator];
@@ -170,7 +180,7 @@ static char TAG_ACTIVITY_SHOW;
         });
     }
 }
-
+// 取消当前Class对应的所有加载请求
 - (void)sd_cancelCurrentImageLoad {
     [self sd_cancelImageLoadOperationWithKey:NSStringFromClass([self class])];
 }
@@ -284,6 +294,7 @@ static char TAG_ACTIVITY_SHOW;
 #if SD_UIKIT
 
 #pragma mark - Activity indicator
+//通过关联对象来实现菊花的添加
 - (UIActivityIndicatorView *)activityIndicator {
     return (UIActivityIndicatorView *)objc_getAssociatedObject(self, &TAG_ACTIVITY_INDICATOR);
 }

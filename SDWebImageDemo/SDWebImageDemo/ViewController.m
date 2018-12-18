@@ -23,13 +23,16 @@
 //    [self.imageView sd_setImageWithURL:[NSURL URLWithString:@"https://oss.zhihanyun.com/Fg8_VDWkEBNFVyFxlsUGavJLusyk"] placeholderImage:[UIImage imageNamed:@"bc_img_placeholder"]];
     
 //    当我通过 [SDWebImagePrefetcher sharedImagePrefetcher] prefetchURLs 提前下载了图片，这里就可以直接从缓存中取了。
-    NSString * cacheKey = [[SDWebImageManager sharedManager] cacheKeyForURL:[NSURL URLWithString:@"https://oss.zhihanyun.com/Fg8_VDWkEBNFVyFxlsUGavJLusyk"]];
-    self.imageView.image = [[SDImageCache sharedImageCache] imageFromCacheForKey: cacheKey];
+//    NSString * cacheKey = [[SDWebImageManager sharedManager] cacheKeyForURL:[NSURL URLWithString:@"https://oss.zhihanyun.com/Fg8_VDWkEBNFVyFxlsUGavJLusyk"]];
+//    self.imageView.image = [[SDImageCache sharedImageCache] imageFromCacheForKey: cacheKey];
     
 //    [self test];
     
 //   SDWebImageProgressiveDownload ： 渐进式解码
-//   [self.imageView sd_setImageWithURL:[NSURL URLWithString:@"https://oss.zhihanyun.com/Fg8_VDWkEBNFVyFxlsUGavJLusyk"] placeholderImage:[UIImage imageNamed:@"bc_img_placeholder"] options:(SDWebImageDelayPlaceholder)];
+   [self.imageView sd_setImageWithURL:[NSURL URLWithString:@"https://oss.zhihanyun.com/Fg8_VDWkEBNFVyFxlsUGavJLusyk"] placeholderImage:[UIImage imageNamed:@"bc_img_placeholder"] options:(SDWebImageDelayPlaceholder)];
+    
+//  获取当前队列的名字
+    NSLog(@"%s", dispatch_queue_get_label(DISPATCH_CURRENT_QUEUE_LABEL));
     
 }
 - (void)test {

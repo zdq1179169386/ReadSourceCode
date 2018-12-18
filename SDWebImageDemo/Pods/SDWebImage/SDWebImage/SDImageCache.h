@@ -14,14 +14,17 @@ typedef NS_ENUM(NSInteger, SDImageCacheType) {
     /**
      * The image wasn't available the SDWebImage caches, but was downloaded from the web.
      */
+    //不使用 SDWebImage 缓存，从网络下载
     SDImageCacheTypeNone,
     /**
      * The image was obtained from the disk cache.
      */
+    //使用磁盘缓存
     SDImageCacheTypeDisk,
     /**
      * The image was obtained from the memory cache.
      */
+    //使用内存缓存
     SDImageCacheTypeMemory
 };
 
@@ -43,11 +46,11 @@ typedef NS_OPTIONS(NSUInteger, SDImageCacheOptions) {
 //    默认情况下，图像会根据其原始大小进行解码。在iOS上，此标志会将图像缩小到与设备的受限内存兼容的大小。100
     SDImageCacheScaleDownLargeImages = 1 << 2
 };
-
+//查询回调Block
 typedef void(^SDCacheQueryCompletedBlock)(UIImage * _Nullable image, NSData * _Nullable data, SDImageCacheType cacheType);
-
+//磁盘缓存检查回调, 是否在缓存中
 typedef void(^SDWebImageCheckCacheCompletionBlock)(BOOL isInCache);
-
+//磁盘缓存空间大小计算回调Block,文件数量, totalSize 总大小
 typedef void(^SDWebImageCalculateSizeBlock)(NSUInteger fileCount, NSUInteger totalSize);
 
 

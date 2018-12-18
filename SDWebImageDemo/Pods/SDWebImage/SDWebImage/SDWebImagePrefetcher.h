@@ -83,6 +83,8 @@ typedef void(^SDWebImagePrefetcherCompletionBlock)(NSUInteger noOfFinishedUrls, 
  *
  * @param urls list of URLs to prefetch
  */
+/*
+ 分配URL列表使得SDWebImagePrefetcher来安排预加载队列，当前同一时间下载一张图片，忽略下载时间的图片并继续执行列表中的下一张图片。任何之前执行的预加载操作都会被取消。*/
 - (void)prefetchURLs:(nullable NSArray<NSURL *> *)urls;
 
 /**

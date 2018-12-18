@@ -317,21 +317,21 @@
 
     return operation;
 }
-
+//保存图片到缓存
 - (void)saveImageToCache:(nullable UIImage *)image forURL:(nullable NSURL *)url {
     if (image && url) {
         NSString *key = [self cacheKeyForURL:url];
         [self.imageCache storeImage:image forKey:key toDisk:YES completion:nil];
     }
 }
-
+//取消所有的下载
 - (void)cancelAll {
     LOCK(self.runningOperationsLock);
     NSSet<SDWebImageCombinedOperation *> *copiedOperations = [self.runningOperations copy];
     UNLOCK(self.runningOperationsLock);
     [copiedOperations makeObjectsPerformSelector:@selector(cancel)]; // This will call `safelyRemoveOperationFromRunning:` and remove from the array
 }
-
+//查看是否正在执行任务
 - (BOOL)isRunning {
     BOOL isRunning = NO;
     LOCK(self.runningOperationsLock);
@@ -339,7 +339,7 @@
     UNLOCK(self.runningOperationsLock);
     return isRunning;
 }
-
+//安全移除任务
 - (void)safelyRemoveOperationFromRunning:(nullable SDWebImageCombinedOperation*)operation {
     if (!operation) {
         return;
@@ -348,14 +348,14 @@
     [self.runningOperations removeObject:operation];
     UNLOCK(self.runningOperationsLock);
 }
-
+//拼接回调Block并进行回调
 - (void)callCompletionBlockForOperation:(nullable SDWebImageCombinedOperation*)operation
                              completion:(nullable SDInternalCompletionBlock)completionBlock
                                   error:(nullable NSError *)error
                                     url:(nullable NSURL *)url {
     [self callCompletionBlockForOperation:operation completion:completionBlock image:nil data:nil error:error cacheType:SDImageCacheTypeNone finished:YES url:url];
 }
-
+//拼接回调Block并进行回调
 - (void)callCompletionBlockForOperation:(nullable SDWebImageCombinedOperation*)operation
                              completion:(nullable SDInternalCompletionBlock)completionBlock
                                   image:(nullable UIImage *)image

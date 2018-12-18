@@ -65,7 +65,7 @@
     }
     return SDImageFormatUndefined;
 }
-
+// 根据图片NSData获取图片的类型
 + (nonnull CFStringRef)sd_UTTypeFromSDImageFormat:(SDImageFormat)format {
     CFStringRef UTType;
     switch (format) {
