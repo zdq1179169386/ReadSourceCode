@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import <SDWebImage/SDWebImagePrefetcher.h>
+#import "SDWebImage/SDWebImagePrefetcher.h"
 
 @interface AppDelegate ()
 
