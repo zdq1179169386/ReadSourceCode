@@ -34,7 +34,7 @@ FOUNDATION_STATIC_INLINE NSUInteger SDCacheCostForImage(UIImage *image) {
 
 /*
  https://www.jianshu.com/p/de71385930ba
- NSHashTable ： 是为了结果可变数组中添加模型，而造成的循环引用，主要决定 NSHashTableWeakMemory
+ NSHashTable ： 是为了解决可变数组中添加模型，而造成的循环引用，主要决定 NSHashTableWeakMemory
  */
 /*
  http://www.isaced.com/post-235.html

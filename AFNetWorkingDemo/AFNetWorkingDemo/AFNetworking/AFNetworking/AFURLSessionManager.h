@@ -201,6 +201,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @return A manager for a newly-created session.
  */
+//NS_DESIGNATED_INITIALIZER : 这个宏是说继承本类，必须实现这个方法，不然就有警告
 - (instancetype)initWithSessionConfiguration:(nullable NSURLSessionConfiguration *)configuration NS_DESIGNATED_INITIALIZER;
 
 /**

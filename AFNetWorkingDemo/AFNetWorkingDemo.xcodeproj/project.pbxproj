@@ -32,6 +32,7 @@
 		2E29FA2E21C8CD1F00FBD7DA /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E29FA1A21C8CD1E00FBD7DA /* AFURLRequestSerialization.m */; };
 		2E29FA2F21C8CD1F00FBD7DA /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E29FA1C21C8CD1E00FBD7DA /* AFNetworkReachabilityManager.m */; };
 		2E29FA3021C8CD1F00FBD7DA /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E29FA1D21C8CD1E00FBD7DA /* AFSecurityPolicy.m */; };
+		2E5B5BD921CA389900DA5D21 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5B5BD821CA389900DA5D21 /* Person.m */; };
 		B6E4D83D0EB840D03768F888 /* libPods-AFNetWorkingDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 642F1173FBD779E0E093D021 /* libPods-AFNetWorkingDemo.a */; };
 		C292A8BF0C7C3F7C240F7D94 /* libPods-AFNetWorkingDemoUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 652268C4A6140F7220F48B95 /* libPods-AFNetWorkingDemoUITests.a */; };
 		E35CF2BEC9AD19C9FD942238 /* libPods-AFNetWorkingDemoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 265ED7097F3C9A9CC3AAB27B /* libPods-AFNetWorkingDemoTests.a */; };
@@ -108,6 +109,8 @@
 		2E29FA1D21C8CD1E00FBD7DA /* AFSecurityPolicy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFSecurityPolicy.m; sourceTree = "<group>"; };
 		2E29FA1E21C8CD1E00FBD7DA /* AFCompatibilityMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFCompatibilityMacros.h; sourceTree = "<group>"; };
 		2E29FA1F21C8CD1E00FBD7DA /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
+		2E5B5BD721CA389900DA5D21 /* Person.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
+		2E5B5BD821CA389900DA5D21 /* Person.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 		33877CD93EFFD59BF2D27602 /* Pods-AFNetWorkingDemoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AFNetWorkingDemoUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AFNetWorkingDemoUITests/Pods-AFNetWorkingDemoUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		409A97ECD0448BD434D74602 /* Pods-AFNetWorkingDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AFNetWorkingDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AFNetWorkingDemo/Pods-AFNetWorkingDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		642F1173FBD779E0E093D021 /* libPods-AFNetWorkingDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AFNetWorkingDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -176,6 +179,8 @@
 				2E29F9C821C8BFB500FBD7DA /* AppDelegate.m */,
 				2E29F9CA21C8BFB500FBD7DA /* ViewController.h */,
 				2E29F9CB21C8BFB500FBD7DA /* ViewController.m */,
+				2E5B5BD721CA389900DA5D21 /* Person.h */,
+				2E5B5BD821CA389900DA5D21 /* Person.m */,
 				2E29F9CD21C8BFB500FBD7DA /* Main.storyboard */,
 				2E29F9D021C8BFB600FBD7DA /* Assets.xcassets */,
 				2E29F9D221C8BFB600FBD7DA /* LaunchScreen.storyboard */,
@@ -491,6 +496,7 @@
 			files = (
 				2E29FA2D21C8CD1F00FBD7DA /* AFURLSessionManager.m in Sources */,
 				2E29FA2221C8CD1F00FBD7DA /* UIProgressView+AFNetworking.m in Sources */,
+				2E5B5BD921CA389900DA5D21 /* Person.m in Sources */,
 				2E29F9CC21C8BFB500FBD7DA /* ViewController.m in Sources */,
 				2E29FA2821C8CD1F00FBD7DA /* UIWebView+AFNetworking.m in Sources */,
 				2E29FA2421C8CD1F00FBD7DA /* AFNetworkActivityIndicatorManager.m in Sources */,

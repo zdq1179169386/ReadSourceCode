@@ -25,9 +25,13 @@
 #import <SystemConfiguration/SystemConfiguration.h>
 
 typedef NS_ENUM(NSInteger, AFNetworkReachabilityStatus) {
+//   位置网络
     AFNetworkReachabilityStatusUnknown          = -1,
+//    无网络
     AFNetworkReachabilityStatusNotReachable     = 0,
+//    手机自带网络
     AFNetworkReachabilityStatusReachableViaWWAN = 1,
+//    wifi
     AFNetworkReachabilityStatusReachableViaWiFi = 2,
 };
 
@@ -47,21 +51,25 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  The current network reachability status.
  */
+//网络状态
 @property (readonly, nonatomic, assign) AFNetworkReachabilityStatus networkReachabilityStatus;
 
 /**
  Whether or not the network is currently reachable.
  */
+//是否可达
 @property (readonly, nonatomic, assign, getter = isReachable) BOOL reachable;
 
 /**
  Whether or not the network is currently reachable via WWAN.
  */
+//是否是WWAN
 @property (readonly, nonatomic, assign, getter = isReachableViaWWAN) BOOL reachableViaWWAN;
 
 /**
  Whether or not the network is currently reachable via WiFi.
  */
+//是否是WiFi
 @property (readonly, nonatomic, assign, getter = isReachableViaWiFi) BOOL reachableViaWiFi;
 
 ///---------------------
@@ -87,6 +95,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @return An initialized network reachability manager, actively monitoring the specified domain.
  */
+// 监听制定domain的网络状态
 + (instancetype)managerForDomain:(NSString *)domain;
 
 /**
@@ -96,6 +105,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @return An initialized network reachability manager, actively monitoring the specified socket address.
  */
+//监听某个socket地址的网络状态
 + (instancetype)managerForAddress:(const void *)address;
 
 /**
@@ -124,11 +134,13 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Starts monitoring for changes in network reachability status.
  */
+//打开监听
 - (void)startMonitoring;
 
 /**
  Stops monitoring for changes in network reachability status.
  */
+//关闭监听
 - (void)stopMonitoring;
 
 ///-------------------------------------------------
@@ -200,6 +212,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @warning In order for network reachability to be monitored, include the `SystemConfiguration` framework in the active target's "Link Binary With Library" build phase, and add `#import <SystemConfiguration/SystemConfiguration.h>` to the header prefix of the project (`Prefix.pch`).
  */
+//网络状态发生改变的通知
 FOUNDATION_EXPORT NSString * const AFNetworkingReachabilityDidChangeNotification;
 FOUNDATION_EXPORT NSString * const AFNetworkingReachabilityNotificationStatusItem;
 

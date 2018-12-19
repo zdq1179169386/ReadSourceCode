@@ -8,7 +8,14 @@
 
 #import "ViewController.h"
 #import "AFNetworking.h"
+#import "Person.h"
+#import <AssertMacros.h>
+
 @interface ViewController ()
+{
+    Person * _p;
+}
+@property (weak, nonatomic) IBOutlet UILabel *infoLab;
 
 @end
 
@@ -19,6 +26,14 @@
     
     [self get];
     [self post];
+    
+    [self test];
+    //    __Require_Quiet（当条件返回false时，执行标记以后的代码）
+    __Require_Quiet(1,_out);
+    NSLog(@"2222");
+_out:
+    NSLog(@"1111");
+    
 }
 - (void)get{
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithBaseURL:[NSURL URLWithString:@"http://www.sojson.com"]];
@@ -45,5 +60,17 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"error = %@", error);
     }];
+}
+- (void)test{
+    Person * p = [Person new];
+    p.name = @"jack";
+    p.age = 11;
+    self.infoLab.text = p.info;
+    _p = p;
+}
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    _p.age ++;
+    self.infoLab.text = _p.info;
 }
 @end

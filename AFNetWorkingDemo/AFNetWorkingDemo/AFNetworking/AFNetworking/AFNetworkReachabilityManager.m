@@ -33,6 +33,7 @@ NSString * const AFNetworkingReachabilityNotificationStatusItem = @"AFNetworking
 
 typedef void (^AFNetworkReachabilityStatusBlock)(AFNetworkReachabilityStatus status);
 
+//枚举转换成字符串
 NSString * AFStringFromNetworkReachabilityStatus(AFNetworkReachabilityStatus status) {
     switch (status) {
         case AFNetworkReachabilityStatusNotReachable:
@@ -78,6 +79,8 @@ static AFNetworkReachabilityStatus AFNetworkReachabilityStatusForFlags(SCNetwork
  * a queued notification (for an earlier status condition) is processed after
  * the later update, resulting in the listener being left in the wrong state.
  */
+//接受网络变化的方式有两种，1 block 2，通知
+//为了保证两种方式的数据统一，把两种方式封装到一个函数
 static void AFPostReachabilityStatusChange(SCNetworkReachabilityFlags flags, AFNetworkReachabilityStatusBlock block) {
     AFNetworkReachabilityStatus status = AFNetworkReachabilityStatusForFlags(flags);
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -112,7 +115,7 @@ static void AFNetworkReachabilityReleaseCallback(const void *info) {
 @end
 
 @implementation AFNetworkReachabilityManager
-
+//单例
 + (instancetype)sharedManager {
     static AFNetworkReachabilityManager *_sharedManager = nil;
     static dispatch_once_t onceToken;
@@ -132,7 +135,7 @@ static void AFNetworkReachabilityReleaseCallback(const void *info) {
 
     return manager;
 }
-
+//初始化方法
 + (instancetype)managerForAddress:(const void *)address {
     SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, (const struct sockaddr *)address);
     AFNetworkReachabilityManager *manager = [[self alloc] initWithReachability:reachability];
@@ -144,6 +147,7 @@ static void AFNetworkReachabilityReleaseCallback(const void *info) {
 
 + (instancetype)manager
 {
+//  由于IPv6 是ios9和os_x 10.11后边推出的，所有要进行版本判断
 #if (defined(__IPHONE_OS_VERSION_MIN_REQUIRED) && __IPHONE_OS_VERSION_MIN_REQUIRED >= 90000) || (defined(__MAC_OS_X_VERSION_MIN_REQUIRED) && __MAC_OS_X_VERSION_MIN_REQUIRED >= 101100)
     struct sockaddr_in6 address;
     bzero(&address, sizeof(address));
@@ -157,7 +161,7 @@ static void AFNetworkReachabilityReleaseCallback(const void *info) {
 #endif
     return [self managerForAddress:&address];
 }
-
+//初始化
 - (instancetype)initWithReachability:(SCNetworkReachabilityRef)reachability {
     self = [super init];
     if (!self) {
@@ -177,7 +181,7 @@ static void AFNetworkReachabilityReleaseCallback(const void *info) {
                                  userInfo:nil];
     return nil;
 }
-
+//释放
 - (void)dealloc {
     [self stopMonitoring];
     
@@ -187,7 +191,7 @@ static void AFNetworkReachabilityReleaseCallback(const void *info) {
 }
 
 #pragma mark -
-
+//三个getter 方法
 - (BOOL)isReachable {
     return [self isReachableViaWWAN] || [self isReachableViaWiFi];
 }
@@ -219,11 +223,19 @@ static void AFNetworkReachabilityReleaseCallback(const void *info) {
         }
 
     };
-
+/*
+ SCNetworkReachabilityContext：
+ 1. 第一个参数接受一个signed long 的参数
+ 2. 第二个参数接受一个void * 类型的值，相当于oc的id类型，void * 可以指向任何类型的参数
+ 3. 第三个参数 是一个函数 目的是对info做retain操作，
+ 4. 第四个参数是一个函数，目的是对info做release操作
+ 5. 第五个参数是 一个函数，根据info获取Description字符串*/
     SCNetworkReachabilityContext context = {0, (__bridge void *)callback, AFNetworkReachabilityRetainCallback, AFNetworkReachabilityReleaseCallback, NULL};
+//  设置回调
     SCNetworkReachabilitySetCallback(self.networkReachability, AFNetworkReachabilityCallback, &context);
+//  加入主runloop
     SCNetworkReachabilityScheduleWithRunLoop(self.networkReachability, CFRunLoopGetMain(), kCFRunLoopCommonModes);
-
+//  后台线程
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),^{
         SCNetworkReachabilityFlags flags;
         if (SCNetworkReachabilityGetFlags(self.networkReachability, &flags)) {
@@ -231,7 +243,7 @@ static void AFNetworkReachabilityReleaseCallback(const void *info) {
         }
     });
 }
-
+//停止网络监听
 - (void)stopMonitoring {
     if (!self.networkReachability) {
         return;
@@ -253,7 +265,7 @@ static void AFNetworkReachabilityReleaseCallback(const void *info) {
 }
 
 #pragma mark - NSKeyValueObserving
-
+//依赖键注册，只要 networkReachabilityStatus 发生变化，reachable ，reachableViaWWAN ，reachableViaWiFi，都会发生变化的
 + (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
     if ([key isEqualToString:@"reachable"] || [key isEqualToString:@"reachableViaWWAN"] || [key isEqualToString:@"reachableViaWiFi"]) {
         return [NSSet setWithObject:@"networkReachabilityStatus"];
