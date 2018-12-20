@@ -37,6 +37,7 @@ _out:
 }
 - (void)get{
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithBaseURL:[NSURL URLWithString:@"http://www.sojson.com"]];
+//    manager.requestSerializer.HTTPShouldUsePipelining = YES;
     [manager GET:@"/open/api/weather/json.shtml" parameters:@{@"city":@"北京"} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"responseObject = %@", responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -50,13 +51,16 @@ _out:
     [manager.requestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     manager.requestSerializer.timeoutInterval = 30;
     manager.requestSerializer.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
-//
+//    manager.requestSerializer.HTTPShouldUsePipelining = YES;
+    [manager.requestSerializer setAuthorizationHeaderFieldWithUsername:@"zdq" password:@"123"];
     manager.responseSerializer.acceptableContentTypes  =  [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/plain",@"application/xml", @"multipart/form-data", nil];
     NSString * urlStr = @"https://www.apiopen.top/journalismApi";
     [manager POST:urlStr parameters:nil progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"responseObject = %@", responseObject);
+        NSDictionary * responseDict = (NSDictionary *)responseObject;
+        NSData * data = [NSJSONSerialization dataWithJSONObject:responseDict options:(NSJSONWritingPrettyPrinted) error:nil];
+        NSLog(@"responseObject = %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"error = %@", error);
     }];
@@ -72,5 +76,18 @@ _out:
 {
     _p.age ++;
     self.infoLab.text = _p.info;
+}
+- (void)upload{
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.requestSerializer.HTTPShouldUsePipelining = YES;
+    [manager POST:@"postURLString" parameters:@{@"Filename":@"Test.txt"} constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        [formData appendPartWithFileData:[NSData data]
+                                    name:@"file000"
+                                fileName:@"Test测试.txt"
+                                mimeType:@"application/octet-stream"];
+        [formData appendPartWithFormData:[@"Submit Query" dataUsingEncoding:NSUTF8StringEncoding]
+                                    name:@"Upload"];
+    } progress:nil success:nil failure:nil];
+
 }
 @end
