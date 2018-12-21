@@ -24,10 +24,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self get];
-    [self post];
-    
-    [self test];
+//    [self get];
+//    [self post];
+//    [self test];
+    [self download];
     //    __Require_Quiet（当条件返回false时，执行标记以后的代码）
     __Require_Quiet(1,_out);
     NSLog(@"2222");
@@ -39,7 +39,7 @@ _out:
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithBaseURL:[NSURL URLWithString:@"http://www.sojson.com"]];
 //    manager.requestSerializer.HTTPShouldUsePipelining = YES;
     [manager GET:@"/open/api/weather/json.shtml" parameters:@{@"city":@"北京"} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"responseObject = %@", responseObject);
+//        NSLog(@"responseObject = %@", responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"error = %@", error);
     }];
@@ -55,12 +55,16 @@ _out:
     [manager.requestSerializer setAuthorizationHeaderFieldWithUsername:@"zdq" password:@"123"];
     manager.responseSerializer.acceptableContentTypes  =  [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/plain",@"application/xml", @"multipart/form-data", nil];
     NSString * urlStr = @"https://www.apiopen.top/journalismApi";
+    [manager setDataTaskWillCacheResponseBlock:^NSCachedURLResponse * _Nonnull(NSURLSession * _Nonnull session, NSURLSessionDataTask * _Nonnull dataTask, NSCachedURLResponse * _Nonnull proposedResponse) {
+        NSLog(@"proposedResponse = %@",proposedResponse);
+        return proposedResponse;
+    }];
     [manager POST:urlStr parameters:nil progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary * responseDict = (NSDictionary *)responseObject;
         NSData * data = [NSJSONSerialization dataWithJSONObject:responseDict options:(NSJSONWritingPrettyPrinted) error:nil];
-        NSLog(@"responseObject = %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+//        NSLog(@"responseObject = %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"error = %@", error);
     }];
@@ -89,5 +93,20 @@ _out:
                                     name:@"Upload"];
     } progress:nil success:nil failure:nil];
 
+}
+- (void)download {
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    NSURL *URL = [NSURL URLWithString:@"http://dldir1.qq.com/qqfile/QQforMac/QQ_V5.4.0.dmg"];
+    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+    NSURLSessionDownloadTask * downloadTask = [manager downloadTaskWithRequest:request progress:^(NSProgress * _Nonnull downloadProgress) {
+        NSLog(@"%@",[NSString stringWithFormat:@"当前下载进度:%.2f%%",100.0 * downloadProgress.completedUnitCount / downloadProgress.totalUnitCount]);
+    } destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
+        NSURL *path = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
+        return [path URLByAppendingPathComponent:@"QQ_V5.4.0.dmg"];
+    } completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
+        NSLog(@"File downloaded to: %@", filePath);
+    }];
+    
+    [downloadTask resume];
 }
 @end

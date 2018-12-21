@@ -40,6 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @return The object decoded from the specified response data.
  */
+//而后面6个类都是遵守这个协议方法，去做数据解析
 - (nullable id)responseObjectForResponse:(nullable NSURLResponse *)response
                            data:(nullable NSData *)data
                           error:(NSError * _Nullable __autoreleasing *)error NS_SWIFT_NOTHROW;

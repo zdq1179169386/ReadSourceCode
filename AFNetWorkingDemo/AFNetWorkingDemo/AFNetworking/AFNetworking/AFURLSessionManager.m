@@ -248,8 +248,9 @@ didCompleteWithError:(NSError *)error
  //在一个并行的dispat_queuq_t对象里面异步处理
         dispatch_async(url_session_manager_processing_queue(), ^{
             NSError *serializationError = nil;
+//            解析数据
             responseObject = [manager.responseSerializer responseObjectForResponse:task.response data:data error:&serializationError];
-
+         //如果是下载文件，那么responseObject为下载的路径
             if (self.downloadFileURL) {
                 responseObject = self.downloadFileURL;
             }
@@ -321,7 +322,7 @@ expectedTotalBytes:(int64_t)expectedTotalBytes{
 didFinishDownloadingToURL:(NSURL *)location
 {
     self.downloadFileURL = nil;
-
+//    自定义的block
     if (self.downloadTaskDidFinishDownloading) {
         self.downloadFileURL = self.downloadTaskDidFinishDownloading(session, downloadTask, location);
         if (self.downloadFileURL) {
@@ -627,7 +628,7 @@ static NSString * const AFNSURLSessionTaskDidSuspendNotification = @"com.alamofi
     [self.lock lock];
     self.mutableTaskDelegatesKeyedByTaskIdentifier[@(task.taskIdentifier)] = delegate;
     NSLog(@"mutableTaskDelegatesKeyedByTaskIdentifier = %@",self.mutableTaskDelegatesKeyedByTaskIdentifier);
-//    添加通知
+//添加task开始和暂停的通知
     [self addNotificationObserverForTask:task];
     [self.lock unlock];
 }
@@ -642,7 +643,7 @@ static NSString * const AFNSURLSessionTaskDidSuspendNotification = @"com.alamofi
     delegate.manager = self;
 //    回调block
     delegate.completionHandler = completionHandler;
-
+//这个taskDescriptionForSessionTasks用来发送开始和挂起通知的时候会用到,就是用这个值来Post通知，来两者对应
     dataTask.taskDescription = self.taskDescriptionForSessionTasks;
     //设置代理
     [self setDelegate:delegate forTask:dataTask];
@@ -784,7 +785,7 @@ static NSString * const AFNSURLSessionTaskDidSuspendNotification = @"com.alamofi
                             completionHandler:(nullable void (^)(NSURLResponse *response, id _Nullable responseObject,  NSError * _Nullable error))completionHandler {
 
     __block NSURLSessionDataTask *dataTask = nil;
-//   在并发队列上创建dataTask 可能会报错，所以AFN 内部维护了一个串行队列
+    //其实现应该是因为iOS 8.0以下版本中会并发地创建多个task对象，而同步有没有做好，导致taskIdentifiers 不唯一…这边做了一个串行处理
     url_session_manager_create_task_safely(^{
         //创建任务
         dataTask = [self.session dataTaskWithRequest:request];
@@ -972,6 +973,7 @@ static NSString * const AFNSURLSessionTaskDidSuspendNotification = @"com.alamofi
 }
 
 - (BOOL)respondsToSelector:(SEL)selector {
+    //复写了selector的方法，这几个方法是在本类有实现的，但是如果外面的Block没赋值的话，则返回NO，相当于没有实现！
     if (selector == @selector(URLSession:task:willPerformHTTPRedirection:newRequest:completionHandler:)) {
         return self.taskWillPerformHTTPRedirection != nil;
     } else if (selector == @selector(URLSession:dataTask:didReceiveResponse:completionHandler:)) {
@@ -989,10 +991,13 @@ static NSString * const AFNSURLSessionTaskDidSuspendNotification = @"com.alamofi
 }
 
 #pragma mark - NSURLSessionDelegate
+//当前这个session已经失效时，该代理方法被调用。
 /*
- 当前session失效时, 代理调用此代理方法.
- 如果外界实现了sessionDidBecomeInvalid的回调, 就会将当前session和错误信息error发送出去, 并且发送一个名字为AFURLSessionDidInvalidateNotification通知出去, 用户可以监听这个通知.
-*/
+ 如果你使用finishTasksAndInvalidate函数使该session失效，
+ 那么session首先会先完成最后一个task，然后再调用URLSession:didBecomeInvalidWithError:代理方法，
+ 如果你调用invalidateAndCancel方法来使session失效，那么该session会立即调用上面的代理方法。
+ */
+
 - (void)URLSession:(NSURLSession *)session
 didBecomeInvalidWithError:(NSError *)error
 {
@@ -1210,8 +1215,9 @@ didBecomeDownloadTask:(NSURLSessionDownloadTask *)downloadTask
  completionHandler:(void (^)(NSCachedURLResponse *cachedResponse))completionHandler
 {
     NSCachedURLResponse *cachedResponse = proposedResponse;
-
+    NSLog(@"cachedResponse = %@",cachedResponse);
     if (self.dataTaskWillCacheResponse) {
+        
         cachedResponse = self.dataTaskWillCacheResponse(session, dataTask, proposedResponse);
     }
 

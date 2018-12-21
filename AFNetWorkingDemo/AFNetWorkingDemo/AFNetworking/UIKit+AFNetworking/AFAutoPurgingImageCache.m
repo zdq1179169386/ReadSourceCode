@@ -106,8 +106,9 @@
     });
     return result;
 }
-
+//请求成功，往cache 添加
 - (void)addImage:(UIImage *)image withIdentifier:(NSString *)identifier {
+//    栅栏函数
     dispatch_barrier_async(self.synchronizationQueue, ^{
         AFCachedImage *cacheImage = [[AFCachedImage alloc] initWithImage:image identifier:identifier];
 

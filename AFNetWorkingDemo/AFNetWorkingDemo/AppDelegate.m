@@ -20,7 +20,7 @@
     NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024 diskCapacity:20 * 1024 * 1024 diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
     
-//    状态栏上的菊花
+//   状态栏上的菊花
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     return YES;
 }
