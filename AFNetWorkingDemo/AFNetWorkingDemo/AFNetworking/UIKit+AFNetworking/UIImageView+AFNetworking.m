@@ -75,7 +75,7 @@
                        success:(void (^)(NSURLRequest *request, NSHTTPURLResponse * _Nullable response, UIImage *image))success
                        failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse * _Nullable response, NSError *error))failure
 {
-    
+    //url为空，则取消
     if ([urlRequest URL] == nil) {
         self.image = placeholderImage;
         if (failure) {
@@ -84,11 +84,11 @@
         }
         return;
     }
-    
+     //看看设置的当前的回调的request和需要请求的request是不是为同一个，是的话为重复调用，直接返回
     if ([self isActiveTaskURLEqualToURLRequest:urlRequest]){
         return;
     }
-    
+    //开始请求前，先取消之前的task,即解绑回调
     [self cancelImageDownloadTask];
 
     AFImageDownloader *downloader = [[self class] sharedImageDownloader];
