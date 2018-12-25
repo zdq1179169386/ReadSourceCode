@@ -24,10 +24,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    [self get];
-//    [self post];
+    [self get];
+    [self post];
 //    [self test];
-    [self download];
+//    [self download];
     //    __Require_Quiet（当条件返回false时，执行标记以后的代码）
     __Require_Quiet(1,_out);
     NSLog(@"2222");
