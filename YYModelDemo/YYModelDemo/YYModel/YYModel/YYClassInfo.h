@@ -79,13 +79,12 @@ YYEncodingType YYEncodingGetType(const char *typeEncoding);
 /**
  Instance variable information.
  */
-/* YYClassIvarInfo 是对 objc_ivar 结构体的封装 ，objc_ivar 是 Runtime 中表示变量的结构体。*/
 @interface YYClassIvarInfo : NSObject
 //变量，对应 objc_ivar
 @property (nonatomic, assign, readonly) Ivar ivar;              ///< ivar opaque struct
 //变量名称，对应 ivar_name
 @property (nonatomic, strong, readonly) NSString *name;         ///< Ivar's name
-//变量偏移量，对应 ivar_offset，可以通过 obj + offset 找到变量的地址
+//变量偏移量，对应 ivar_offset
 @property (nonatomic, assign, readonly) ptrdiff_t offset;       ///< Ivar's offset
 //变量类型编码，通过 ivar_getTypeEncoding 函数得到
 @property (nonatomic, strong, readonly) NSString *typeEncoding; ///< Ivar's type encoding
@@ -105,7 +104,6 @@ YYEncodingType YYEncodingGetType(const char *typeEncoding);
 /**
  Method information.
  */
-//  YYClassMethodInfo 是对 objc_method 的封装， objc_method 在 Runtime 是用来定义方法的结构体。
 @interface YYClassMethodInfo : NSObject
 //方法
 @property (nonatomic, assign, readonly) Method method;                  ///< method opaque struct
@@ -135,25 +133,15 @@ YYEncodingType YYEncodingGetType(const char *typeEncoding);
 /**
  Property information.
  */
-// YYClassPropertyInfo 是对 property_t 的封装， property_t 在 Runtime 中是用来表示属性的结构体。
 @interface YYClassPropertyInfo : NSObject
-//属性
 @property (nonatomic, assign, readonly) objc_property_t property; ///< property's opaque struct
-// 属性名称
 @property (nonatomic, strong, readonly) NSString *name;           ///< property's name
-//属性类型
 @property (nonatomic, assign, readonly) YYEncodingType type;      ///< property's type
-//属性类型编码
 @property (nonatomic, strong, readonly) NSString *typeEncoding;   ///< property's encoding value
-//变量名称
 @property (nonatomic, strong, readonly) NSString *ivarName;       ///< property's ivar name
-//类型
 @property (nullable, nonatomic, assign, readonly) Class cls;      ///< may be nil
-//属性相关协议
 @property (nullable, nonatomic, strong, readonly) NSArray<NSString *> *protocols; ///< may nil
-//getter 方法选择器
 @property (nonatomic, assign, readonly) SEL getter;               ///< getter (nonnull)
-//setter 方法选择器
 @property (nonatomic, assign, readonly) SEL setter;               ///< setter (nonnull)
 
 /**
@@ -170,30 +158,21 @@ YYEncodingType YYEncodingGetType(const char *typeEncoding);
  Class information for a class.
  */
 @interface YYClassInfo : NSObject
-//类
 @property (nonatomic, assign, readonly) Class cls; ///< class object
-//父类
 @property (nullable, nonatomic, assign, readonly) Class superCls; ///< super class object
-//元类
 @property (nullable, nonatomic, assign, readonly) Class metaCls;  ///< class's meta class object
-//是否是元类
 @property (nonatomic, readonly) BOOL isMeta; ///< whether this class is meta class
-//类名称
 @property (nonatomic, strong, readonly) NSString *name; ///< class name
-//父类信息
 @property (nullable, nonatomic, strong, readonly) YYClassInfo *superClassInfo; ///< super class's class info
-//变量信息
 @property (nullable, nonatomic, strong, readonly) NSDictionary<NSString *, YYClassIvarInfo *> *ivarInfos; ///< ivars
-//方法信息
 @property (nullable, nonatomic, strong, readonly) NSDictionary<NSString *, YYClassMethodInfo *> *methodInfos; ///< methods
-//属性信息
 @property (nullable, nonatomic, strong, readonly) NSDictionary<NSString *, YYClassPropertyInfo *> *propertyInfos; ///< properties
 
 /**
  If the class is changed (for example: you add a method to this class with
  'class_addMethod()'), you should call this method to refresh the class info cache.
  
- After called this method, `needUpdate` will returns `YES`, and you should call
+ After called this method, `needUpdate` will returns `YES`, and you should call 
  'classInfoWithClass' or 'classInfoWithClassName' to get the updated class info.
  */
 - (void)setNeedUpdate;
@@ -231,4 +210,3 @@ YYEncodingType YYEncodingGetType(const char *typeEncoding);
 @end
 
 NS_ASSUME_NONNULL_END
-

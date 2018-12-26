@@ -70,8 +70,39 @@
     self.window.rootViewController = self.rootViewController;
     self.window.backgroundColor = [UIColor grayColor];
     [self.window makeKeyAndVisible];
-    
+//    [self test];
     return YES;
+}
+
+- (void)test{
+    dispatch_semaphore_t signal;
+    signal = dispatch_semaphore_create(1);
+    __block long x = 0;
+    NSLog(@"0_x:%ld",x);
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        sleep(1);
+        NSLog(@"waiting");
+        x = dispatch_semaphore_signal(signal);
+        NSLog(@"1_x:%ld",x);
+        
+        sleep(2);
+        NSLog(@"waking");
+        x = dispatch_semaphore_signal(signal);
+        NSLog(@"2_x:%ld",x);
+    });
+    //    dispatch_time_t duration = dispatch_time(DISPATCH_TIME_NOW, 1*1000*1000*1000); //超时1秒
+    //    dispatch_semaphore_wait(signal, duration);
+    
+    x = dispatch_semaphore_wait(signal, DISPATCH_TIME_FOREVER);
+    NSLog(@"3_x:%ld",x);
+    
+    x = dispatch_semaphore_wait(signal, DISPATCH_TIME_FOREVER);
+    NSLog(@"wait 2");
+    NSLog(@"4_x:%ld",x);
+    
+    x = dispatch_semaphore_wait(signal, DISPATCH_TIME_FOREVER);
+    NSLog(@"wait 3");
+    NSLog(@"5_x:%ld",x);
 }
 
 @end

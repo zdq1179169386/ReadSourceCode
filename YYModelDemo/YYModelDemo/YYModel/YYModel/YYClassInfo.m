@@ -1,6 +1,6 @@
 //
 //  YYClassInfo.m
-//  YYKit <https://github.com/ibireme/YYKit>
+//  YYModel <https://github.com/ibireme/YYModel>
 //
 //  Created by ibireme on 15/5/9.
 //  Copyright (c) 2015 ibireme.
@@ -11,7 +11,7 @@
 
 #import "YYClassInfo.h"
 #import <objc/runtime.h>
-//定义一个方法 把typeEncoding 转为自定义的枚举类型，方便管理和使用，
+
 YYEncodingType YYEncodingGetType(const char *typeEncoding) {
     char *type = (char *)typeEncoding;
     if (!type) return YYEncodingTypeUnknown;
@@ -91,24 +91,19 @@ YYEncodingType YYEncodingGetType(const char *typeEncoding) {
 }
 
 @implementation YYClassIvarInfo
-//初始化方法
+
 - (instancetype)initWithIvar:(Ivar)ivar {
-//    参数判断
     if (!ivar) return nil;
     self = [super init];
     _ivar = ivar;
-//    获取成员变量的名字
     const char *name = ivar_getName(ivar);
     if (name) {
         _name = [NSString stringWithUTF8String:name];
     }
-//    偏移量，可以通过 obj + offset 找到变量的地址
     _offset = ivar_getOffset(ivar);
-//    编码类型
     const char *typeEncoding = ivar_getTypeEncoding(ivar);
     if (typeEncoding) {
         _typeEncoding = [NSString stringWithUTF8String:typeEncoding];
-//        转成自定义的枚举
         _type = YYEncodingGetType(typeEncoding);
     }
     return self;
@@ -117,49 +112,30 @@ YYEncodingType YYEncodingGetType(const char *typeEncoding) {
 @end
 
 @implementation YYClassMethodInfo
-/*
- 
- struct objc_method {
-    SEL _Nonnull method_name    方法名
-    char * _Nullable method_types    方法类型
-    IMP _Nonnull method_imp     方法的实现地址
- }
- */
 
 - (instancetype)initWithMethod:(Method)method {
-//    参数判断
     if (!method) return nil;
     self = [super init];
     _method = method;
-//    Method获取方法的名称,返回值类型是 SEL
     _sel = method_getName(method);
-//    方法的实现地址
     _imp = method_getImplementation(method);
-//    SEL 获取方法名，返回值是 const char *
     const char *name = sel_getName(_sel);
     if (name) {
-//        方法名字符串
         _name = [NSString stringWithUTF8String:name];
     }
-//   参数和返回值编码类型
     const char *typeEncoding = method_getTypeEncoding(method);
-  
     if (typeEncoding) {
         _typeEncoding = [NSString stringWithUTF8String:typeEncoding];
     }
-//    返回值类型
     char *returnType = method_copyReturnType(method);
     if (returnType) {
         _returnTypeEncoding = [NSString stringWithUTF8String:returnType];
-        // 但凡 通过copy retain alloc 系统方法得到的内存，必须使用relea() 或 free() 进行释放
         free(returnType);
     }
-    // method_getNumberOfArguments : 获取参数个数
     unsigned int argumentCount = method_getNumberOfArguments(method);
     if (argumentCount > 0) {
         NSMutableArray *argumentTypes = [NSMutableArray new];
         for (unsigned int i = 0; i < argumentCount; i++) {
-//          method_copyArgumentType：根据method 和index  获取单个参数的类型
             char *argumentType = method_copyArgumentType(method, i);
             NSString *type = argumentType ? [NSString stringWithUTF8String:argumentType] : nil;
             [argumentTypes addObject:type ? type : @""];
@@ -178,7 +154,6 @@ YYEncodingType YYEncodingGetType(const char *typeEncoding) {
     if (!property) return nil;
     self = [super init];
     _property = property;
-//    获取属性名
     const char *name = property_getName(property);
     if (name) {
         _name = [NSString stringWithUTF8String:name];
@@ -186,15 +161,12 @@ YYEncodingType YYEncodingGetType(const char *typeEncoding) {
     
     YYEncodingType type = 0;
     unsigned int attrCount;
-    // 2.获取每一个属性的编码字符串
     objc_property_attribute_t *attrs = property_copyAttributeList(property, &attrCount);
     for (unsigned int i = 0; i < attrCount; i++) {
         switch (attrs[i].name[0]) {
-            // T 代码属性的类型编码
             case 'T': { // Type encoding
                 if (attrs[i].value) {
                     _typeEncoding = [NSString stringWithUTF8String:attrs[i].value];
-//                    转成自定义的枚举
                     type = YYEncodingGetType(attrs[i].value);
                     
                     if ((type & YYEncodingTypeMask) == YYEncodingTypeObject && _typeEncoding.length) {
@@ -298,7 +270,6 @@ YYEncodingType YYEncodingGetType(const char *typeEncoding) {
     return self;
 }
 
-//清空实例变量，属性，方法，然后重新初始化
 - (void)_update {
     _ivarInfos = nil;
     _methodInfos = nil;
@@ -354,41 +325,28 @@ YYEncodingType YYEncodingGetType(const char *typeEncoding) {
 - (BOOL)needUpdate {
     return _needUpdate;
 }
-//使用缓存可以有效减少我们在 JSON 模型转换时反复初始化 YYClassInfo 带来的开销
+
 + (instancetype)classInfoWithClass:(Class)cls {
-//  判断为空
     if (!cls) return nil;
-//    CFMutableDictionaryRef 其实对应的是 NSMutableDictionary
-    
-//    类缓存
     static CFMutableDictionaryRef classCache;
-//    元类缓存
     static CFMutableDictionaryRef metaCache;
     static dispatch_once_t onceToken;
     static dispatch_semaphore_t lock;
-//    单例
     dispatch_once(&onceToken, ^{
-//        创建字典
         classCache = CFDictionaryCreateMutable(CFAllocatorGetDefault(), 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
         metaCache = CFDictionaryCreateMutable(CFAllocatorGetDefault(), 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
         lock = dispatch_semaphore_create(1);
     });
-//    锁
     dispatch_semaphore_wait(lock, DISPATCH_TIME_FOREVER);
-//    元类去元类缓存中，类的话，去类缓存中找
-//    取值
     YYClassInfo *info = CFDictionaryGetValue(class_isMetaClass(cls) ? metaCache : classCache, (__bridge const void *)(cls));
-//    注册过是否需要更新
     if (info && info->_needUpdate) {
         [info _update];
     }
     dispatch_semaphore_signal(lock);
     if (!info) {
-//        缓存中没有，则初始化
         info = [[YYClassInfo alloc] initWithClass:cls];
         if (info) {
             dispatch_semaphore_wait(lock, DISPATCH_TIME_FOREVER);
-//            setValueForKey
             CFDictionarySetValue(info.isMeta ? metaCache : classCache, (__bridge const void *)(cls), (__bridge const void *)(info));
             dispatch_semaphore_signal(lock);
         }
