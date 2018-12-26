@@ -31,7 +31,7 @@
     //[self log];
     
     //    [self test1];
-    [self test3];
+//    [self test3];
 
 }
 

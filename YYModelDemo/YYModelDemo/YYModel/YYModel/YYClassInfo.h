@@ -42,9 +42,9 @@ typedef NS_OPTIONS(NSUInteger, YYEncodingType) {
     YYEncodingTypeUnion      = 20, ///< union
     YYEncodingTypeCString    = 21, ///< char*
     YYEncodingTypeCArray     = 22, ///< char[10] (for example)
-    
+//    
     YYEncodingTypeQualifierMask   = 0xFF00,   ///< mask of qualifier
-    YYEncodingTypeQualifierConst  = 1 << 8,  ///< const
+    YYEncodingTypeQualifierConst  = 1 << 8,  ///< const 10000000
     YYEncodingTypeQualifierIn     = 1 << 9,  ///< in
     YYEncodingTypeQualifierInout  = 1 << 10, ///< inout
     YYEncodingTypeQualifierOut    = 1 << 11, ///< out

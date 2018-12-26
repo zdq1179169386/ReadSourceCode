@@ -192,6 +192,7 @@ YYEncodingType YYEncodingGetType(const char *typeEncoding) {
         switch (attrs[i].name[0]) {
             // T 代码属性的类型编码
             case 'T': { // Type encoding
+//                属性类型
                 if (attrs[i].value) {
                     _typeEncoding = [NSString stringWithUTF8String:attrs[i].value];
 //                    转成自定义的枚举
@@ -203,13 +204,14 @@ YYEncodingType YYEncodingGetType(const char *typeEncoding) {
                         
                         NSString *clsName = nil;
                         if ([scanner scanUpToCharactersFromSet: [NSCharacterSet characterSetWithCharactersInString:@"\"<"] intoString:&clsName]) {
+                            NSLog(@"_typeEncoding = %@,clsName = %@",_typeEncoding,clsName);
                             if (clsName.length) _cls = objc_getClass(clsName.UTF8String);
                         }
-                        
                         NSMutableArray *protocols = nil;
                         while ([scanner scanString:@"<" intoString:NULL]) {
                             NSString* protocol = nil;
                             if ([scanner scanUpToString:@">" intoString: &protocol]) {
+                                NSLog(@"protocol = %@",protocol);
                                 if (protocol.length) {
                                     if (!protocols) protocols = [NSMutableArray new];
                                     [protocols addObject:protocol];
@@ -222,6 +224,7 @@ YYEncodingType YYEncodingGetType(const char *typeEncoding) {
                 }
             } break;
             case 'V': { // Instance variable
+//                属性的 变量名
                 if (attrs[i].value) {
                     _ivarName = [NSString stringWithUTF8String:attrs[i].value];
                 }
@@ -273,6 +276,7 @@ YYEncodingType YYEncodingGetType(const char *typeEncoding) {
             _setter = NSSelectorFromString([NSString stringWithFormat:@"set%@%@:", [_name substringToIndex:1].uppercaseString, [_name substringFromIndex:1]]);
         }
     }
+//    NSLog(@"name = %@,ivarName = %@",_name,_ivarName);
     return self;
 }
 

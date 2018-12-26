@@ -18,6 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
  Type encoding's type.
  */
 typedef NS_OPTIONS(NSUInteger, YYEncodingType) {
+    //    111111110000000000000000 : 其实第一个8位 给了 YYEncodingTypeMask 类型， 第二个八位给了 YYEncodingTypeQualifierMask，第三个8位给了 YYEncodingTypePropertyMask
+//    避免创建三个枚举
+// 0xFF ： 11111111
     YYEncodingTypeMask       = 0xFF, ///< mask of type value
     YYEncodingTypeUnknown    = 0, ///< unknown
     YYEncodingTypeVoid       = 1, ///< void
@@ -42,18 +45,18 @@ typedef NS_OPTIONS(NSUInteger, YYEncodingType) {
     YYEncodingTypeUnion      = 20, ///< union
     YYEncodingTypeCString    = 21, ///< char*
     YYEncodingTypeCArray     = 22, ///< char[10] (for example)
-    
+// 0xFF00 ： 1111111100000000
     YYEncodingTypeQualifierMask   = 0xFF00,   ///< mask of qualifier
-    YYEncodingTypeQualifierConst  = 1 << 8,  ///< const
-    YYEncodingTypeQualifierIn     = 1 << 9,  ///< in
+    YYEncodingTypeQualifierConst  = 1 << 8,  ///< const  1000 0000
+    YYEncodingTypeQualifierIn     = 1 << 9,  ///< in     1 0000 0000
     YYEncodingTypeQualifierInout  = 1 << 10, ///< inout
     YYEncodingTypeQualifierOut    = 1 << 11, ///< out
     YYEncodingTypeQualifierBycopy = 1 << 12, ///< bycopy
     YYEncodingTypeQualifierByref  = 1 << 13, ///< byref
     YYEncodingTypeQualifierOneway = 1 << 14, ///< oneway
-    
+//   111111110000000000000000
     YYEncodingTypePropertyMask         = 0xFF0000, ///< mask of property
-    YYEncodingTypePropertyReadonly     = 1 << 16, ///< readonly
+    YYEncodingTypePropertyReadonly     = 1 << 16, ///< readonly  1000 0000 0000 0000
     YYEncodingTypePropertyCopy         = 1 << 17, ///< copy
     YYEncodingTypePropertyRetain       = 1 << 18, ///< retain
     YYEncodingTypePropertyNonatomic    = 1 << 19, ///< nonatomic
@@ -145,7 +148,7 @@ YYEncodingType YYEncodingGetType(const char *typeEncoding);
 @property (nonatomic, assign, readonly) YYEncodingType type;      ///< property's type
 //属性类型编码
 @property (nonatomic, strong, readonly) NSString *typeEncoding;   ///< property's encoding value
-//变量名称
+//变量名称 ivarName 比 name 多个下划线
 @property (nonatomic, strong, readonly) NSString *ivarName;       ///< property's ivar name
 //类型
 @property (nullable, nonatomic, assign, readonly) Class cls;      ///< may be nil
