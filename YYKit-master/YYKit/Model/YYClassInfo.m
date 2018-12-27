@@ -17,7 +17,7 @@ YYEncodingType YYEncodingGetType(const char *typeEncoding) {
     if (!type) return YYEncodingTypeUnknown;
     size_t len = strlen(type);
     if (len == 0) return YYEncodingTypeUnknown;
-    
+
     YYEncodingType qualifier = 0;
     bool prefix = true;
     while (prefix) {
@@ -204,14 +204,14 @@ YYEncodingType YYEncodingGetType(const char *typeEncoding) {
                         
                         NSString *clsName = nil;
                         if ([scanner scanUpToCharactersFromSet: [NSCharacterSet characterSetWithCharactersInString:@"\"<"] intoString:&clsName]) {
-                            NSLog(@"_typeEncoding = %@,clsName = %@",_typeEncoding,clsName);
+//                            NSLog(@"_typeEncoding = %@,clsName = %@",_typeEncoding,clsName);
                             if (clsName.length) _cls = objc_getClass(clsName.UTF8String);
                         }
                         NSMutableArray *protocols = nil;
                         while ([scanner scanString:@"<" intoString:NULL]) {
                             NSString* protocol = nil;
                             if ([scanner scanUpToString:@">" intoString: &protocol]) {
-                                NSLog(@"protocol = %@",protocol);
+//                                NSLog(@"protocol = %@",protocol);
                                 if (protocol.length) {
                                     if (!protocols) protocols = [NSMutableArray new];
                                     [protocols addObject:protocol];
@@ -304,6 +304,7 @@ YYEncodingType YYEncodingGetType(const char *typeEncoding) {
 
 //清空实例变量，属性，方法，然后重新初始化
 - (void)_update {
+//    清空实例变量，属性，方法
     _ivarInfos = nil;
     _methodInfos = nil;
     _propertyInfos = nil;

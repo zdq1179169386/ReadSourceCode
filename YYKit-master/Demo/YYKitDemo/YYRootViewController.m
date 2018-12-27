@@ -32,6 +32,9 @@
     
     //    [self test1];
 //    [self test3];
+    
+    id obj = [[NSObject alloc] init];
+    void * p = (__bridge void *)(obj);
 
 }
 
