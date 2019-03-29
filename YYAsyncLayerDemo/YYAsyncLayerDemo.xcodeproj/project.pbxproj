@@ -1,0 +1,744 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		021BBD5FDF214D3DAEB97699 /* libPods-YYAsyncLayerDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EDBBCB0064A819F80A21DD98 /* libPods-YYAsyncLayerDemo.a */; };
+		0E5B3D9733A79D410A0BE71D /* libPods-YYAsyncLayerDemoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A9548E11FC1B8D10021271 /* libPods-YYAsyncLayerDemoTests.a */; };
+		2E22405122141040009AE72D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E22405022141040009AE72D /* AppDelegate.m */; };
+		2E22405422141040009AE72D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E22405322141040009AE72D /* ViewController.m */; };
+		2E22405722141040009AE72D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E22405522141040009AE72D /* Main.storyboard */; };
+		2E22405922141041009AE72D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E22405822141041009AE72D /* Assets.xcassets */; };
+		2E22405C22141041009AE72D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E22405A22141041009AE72D /* LaunchScreen.storyboard */; };
+		2E22405F22141041009AE72D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E22405E22141041009AE72D /* main.m */; };
+		2E22406922141042009AE72D /* YYAsyncLayerDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E22406822141042009AE72D /* YYAsyncLayerDemoTests.m */; };
+		2E22407422141042009AE72D /* YYAsyncLayerDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E22407322141042009AE72D /* YYAsyncLayerDemoUITests.m */; };
+		2E224095221410CC009AE72D /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 2E22408C221410CC009AE72D /* LICENSE */; };
+		2E224096221410CC009AE72D /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 2E22408D221410CC009AE72D /* README.md */; };
+		2E224097221410CC009AE72D /* YYAsyncLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E22408F221410CC009AE72D /* YYAsyncLayer.m */; };
+		2E224098221410CC009AE72D /* YYSentinel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E224091221410CC009AE72D /* YYSentinel.m */; };
+		2E224099221410CC009AE72D /* YYTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E224093221410CC009AE72D /* YYTransaction.m */; };
+		2E22411922156192009AE72D /* ZDThread.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E22411822156192009AE72D /* ZDThread.m */; };
+		4C6870AC41AC609AFC540AD6 /* libPods-YYAsyncLayerDemoUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A51C86149F954802012A578 /* libPods-YYAsyncLayerDemoUITests.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2E22406522141042009AE72D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E22404422141040009AE72D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2E22404B22141040009AE72D;
+			remoteInfo = YYAsyncLayerDemo;
+		};
+		2E22407022141042009AE72D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E22404422141040009AE72D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2E22404B22141040009AE72D;
+			remoteInfo = YYAsyncLayerDemo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0D93716BCDC19D9A3A315DFC /* Pods-YYAsyncLayerDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YYAsyncLayerDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YYAsyncLayerDemo/Pods-YYAsyncLayerDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		170AB98CDA7D1C0FC51CB28B /* Pods-YYAsyncLayerDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YYAsyncLayerDemoTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YYAsyncLayerDemoTests/Pods-YYAsyncLayerDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
+		2E22404C22141040009AE72D /* YYAsyncLayerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YYAsyncLayerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2E22404F22141040009AE72D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		2E22405022141040009AE72D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		2E22405222141040009AE72D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		2E22405322141040009AE72D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		2E22405622141040009AE72D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		2E22405822141041009AE72D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2E22405B22141041009AE72D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		2E22405D22141041009AE72D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2E22405E22141041009AE72D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2E22406422141042009AE72D /* YYAsyncLayerDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YYAsyncLayerDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2E22406822141042009AE72D /* YYAsyncLayerDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYAsyncLayerDemoTests.m; sourceTree = "<group>"; };
+		2E22406A22141042009AE72D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2E22406F22141042009AE72D /* YYAsyncLayerDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YYAsyncLayerDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2E22407322141042009AE72D /* YYAsyncLayerDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYAsyncLayerDemoUITests.m; sourceTree = "<group>"; };
+		2E22407522141042009AE72D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2E22408C221410CC009AE72D /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		2E22408D221410CC009AE72D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		2E22408F221410CC009AE72D /* YYAsyncLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYAsyncLayer.m; sourceTree = "<group>"; };
+		2E224090221410CC009AE72D /* YYTransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYTransaction.h; sourceTree = "<group>"; };
+		2E224091221410CC009AE72D /* YYSentinel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYSentinel.m; sourceTree = "<group>"; };
+		2E224092221410CC009AE72D /* YYAsyncLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYAsyncLayer.h; sourceTree = "<group>"; };
+		2E224093221410CC009AE72D /* YYTransaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYTransaction.m; sourceTree = "<group>"; };
+		2E224094221410CC009AE72D /* YYSentinel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYSentinel.h; sourceTree = "<group>"; };
+		2E22411722156192009AE72D /* ZDThread.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZDThread.h; sourceTree = "<group>"; };
+		2E22411822156192009AE72D /* ZDThread.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZDThread.m; sourceTree = "<group>"; };
+		4B8D831D013D35221A82AD86 /* Pods-YYAsyncLayerDemoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YYAsyncLayerDemoUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-YYAsyncLayerDemoUITests/Pods-YYAsyncLayerDemoUITests.release.xcconfig"; sourceTree = "<group>"; };
+		8A51C86149F954802012A578 /* libPods-YYAsyncLayerDemoUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YYAsyncLayerDemoUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ADFC0559468BD22FE62E5856 /* Pods-YYAsyncLayerDemoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YYAsyncLayerDemoUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YYAsyncLayerDemoUITests/Pods-YYAsyncLayerDemoUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		C690F8B90A389DEB04994817 /* Pods-YYAsyncLayerDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YYAsyncLayerDemoTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-YYAsyncLayerDemoTests/Pods-YYAsyncLayerDemoTests.release.xcconfig"; sourceTree = "<group>"; };
+		D3A9548E11FC1B8D10021271 /* libPods-YYAsyncLayerDemoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YYAsyncLayerDemoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EDBBCB0064A819F80A21DD98 /* libPods-YYAsyncLayerDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YYAsyncLayerDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F17EF9EC13416D32616E02D8 /* Pods-YYAsyncLayerDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YYAsyncLayerDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-YYAsyncLayerDemo/Pods-YYAsyncLayerDemo.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2E22404922141040009AE72D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				021BBD5FDF214D3DAEB97699 /* libPods-YYAsyncLayerDemo.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2E22406122141042009AE72D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E5B3D9733A79D410A0BE71D /* libPods-YYAsyncLayerDemoTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2E22406C22141042009AE72D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C6870AC41AC609AFC540AD6 /* libPods-YYAsyncLayerDemoUITests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2E22404322141040009AE72D = {
+			isa = PBXGroup;
+			children = (
+				2E22404E22141040009AE72D /* YYAsyncLayerDemo */,
+				2E22406722141042009AE72D /* YYAsyncLayerDemoTests */,
+				2E22407222141042009AE72D /* YYAsyncLayerDemoUITests */,
+				2E22404D22141040009AE72D /* Products */,
+				BB07AA24A991AEE37AB6FF15 /* Pods */,
+				9A6A4B968CE0B20A1EB15254 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		2E22404D22141040009AE72D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E22404C22141040009AE72D /* YYAsyncLayerDemo.app */,
+				2E22406422141042009AE72D /* YYAsyncLayerDemoTests.xctest */,
+				2E22406F22141042009AE72D /* YYAsyncLayerDemoUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E22404E22141040009AE72D /* YYAsyncLayerDemo */ = {
+			isa = PBXGroup;
+			children = (
+				2E22408B221410CC009AE72D /* YYAsyncLayer */,
+				2E22404F22141040009AE72D /* AppDelegate.h */,
+				2E22405022141040009AE72D /* AppDelegate.m */,
+				2E22405222141040009AE72D /* ViewController.h */,
+				2E22405322141040009AE72D /* ViewController.m */,
+				2E22411722156192009AE72D /* ZDThread.h */,
+				2E22411822156192009AE72D /* ZDThread.m */,
+				2E22405522141040009AE72D /* Main.storyboard */,
+				2E22405822141041009AE72D /* Assets.xcassets */,
+				2E22405A22141041009AE72D /* LaunchScreen.storyboard */,
+				2E22405D22141041009AE72D /* Info.plist */,
+				2E22405E22141041009AE72D /* main.m */,
+			);
+			path = YYAsyncLayerDemo;
+			sourceTree = "<group>";
+		};
+		2E22406722141042009AE72D /* YYAsyncLayerDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				2E22406822141042009AE72D /* YYAsyncLayerDemoTests.m */,
+				2E22406A22141042009AE72D /* Info.plist */,
+			);
+			path = YYAsyncLayerDemoTests;
+			sourceTree = "<group>";
+		};
+		2E22407222141042009AE72D /* YYAsyncLayerDemoUITests */ = {
+			isa = PBXGroup;
+			children = (
+				2E22407322141042009AE72D /* YYAsyncLayerDemoUITests.m */,
+				2E22407522141042009AE72D /* Info.plist */,
+			);
+			path = YYAsyncLayerDemoUITests;
+			sourceTree = "<group>";
+		};
+		2E22408B221410CC009AE72D /* YYAsyncLayer */ = {
+			isa = PBXGroup;
+			children = (
+				2E22408C221410CC009AE72D /* LICENSE */,
+				2E22408D221410CC009AE72D /* README.md */,
+				2E22408E221410CC009AE72D /* YYAsyncLayer */,
+			);
+			path = YYAsyncLayer;
+			sourceTree = "<group>";
+		};
+		2E22408E221410CC009AE72D /* YYAsyncLayer */ = {
+			isa = PBXGroup;
+			children = (
+				2E224092221410CC009AE72D /* YYAsyncLayer.h */,
+				2E22408F221410CC009AE72D /* YYAsyncLayer.m */,
+				2E224094221410CC009AE72D /* YYSentinel.h */,
+				2E224091221410CC009AE72D /* YYSentinel.m */,
+				2E224090221410CC009AE72D /* YYTransaction.h */,
+				2E224093221410CC009AE72D /* YYTransaction.m */,
+			);
+			path = YYAsyncLayer;
+			sourceTree = "<group>";
+		};
+		9A6A4B968CE0B20A1EB15254 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EDBBCB0064A819F80A21DD98 /* libPods-YYAsyncLayerDemo.a */,
+				D3A9548E11FC1B8D10021271 /* libPods-YYAsyncLayerDemoTests.a */,
+				8A51C86149F954802012A578 /* libPods-YYAsyncLayerDemoUITests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BB07AA24A991AEE37AB6FF15 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0D93716BCDC19D9A3A315DFC /* Pods-YYAsyncLayerDemo.debug.xcconfig */,
+				F17EF9EC13416D32616E02D8 /* Pods-YYAsyncLayerDemo.release.xcconfig */,
+				170AB98CDA7D1C0FC51CB28B /* Pods-YYAsyncLayerDemoTests.debug.xcconfig */,
+				C690F8B90A389DEB04994817 /* Pods-YYAsyncLayerDemoTests.release.xcconfig */,
+				ADFC0559468BD22FE62E5856 /* Pods-YYAsyncLayerDemoUITests.debug.xcconfig */,
+				4B8D831D013D35221A82AD86 /* Pods-YYAsyncLayerDemoUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2E22404B22141040009AE72D /* YYAsyncLayerDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2E22407822141042009AE72D /* Build configuration list for PBXNativeTarget "YYAsyncLayerDemo" */;
+			buildPhases = (
+				5CACFDCADD4C1D85BD4F3D8E /* [CP] Check Pods Manifest.lock */,
+				2E22404822141040009AE72D /* Sources */,
+				2E22404922141040009AE72D /* Frameworks */,
+				2E22404A22141040009AE72D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = YYAsyncLayerDemo;
+			productName = YYAsyncLayerDemo;
+			productReference = 2E22404C22141040009AE72D /* YYAsyncLayerDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		2E22406322141042009AE72D /* YYAsyncLayerDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2E22407B22141042009AE72D /* Build configuration list for PBXNativeTarget "YYAsyncLayerDemoTests" */;
+			buildPhases = (
+				F0C51A38296DF04EF6E85F7C /* [CP] Check Pods Manifest.lock */,
+				2E22406022141042009AE72D /* Sources */,
+				2E22406122141042009AE72D /* Frameworks */,
+				2E22406222141042009AE72D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2E22406622141042009AE72D /* PBXTargetDependency */,
+			);
+			name = YYAsyncLayerDemoTests;
+			productName = YYAsyncLayerDemoTests;
+			productReference = 2E22406422141042009AE72D /* YYAsyncLayerDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		2E22406E22141042009AE72D /* YYAsyncLayerDemoUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2E22407E22141042009AE72D /* Build configuration list for PBXNativeTarget "YYAsyncLayerDemoUITests" */;
+			buildPhases = (
+				10893376197F7A3545C30FC6 /* [CP] Check Pods Manifest.lock */,
+				2E22406B22141042009AE72D /* Sources */,
+				2E22406C22141042009AE72D /* Frameworks */,
+				2E22406D22141042009AE72D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2E22407122141042009AE72D /* PBXTargetDependency */,
+			);
+			name = YYAsyncLayerDemoUITests;
+			productName = YYAsyncLayerDemoUITests;
+			productReference = 2E22406F22141042009AE72D /* YYAsyncLayerDemoUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2E22404422141040009AE72D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = zdq;
+				TargetAttributes = {
+					2E22404B22141040009AE72D = {
+						CreatedOnToolsVersion = 10.1;
+					};
+					2E22406322141042009AE72D = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = 2E22404B22141040009AE72D;
+					};
+					2E22406E22141042009AE72D = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = 2E22404B22141040009AE72D;
+					};
+				};
+			};
+			buildConfigurationList = 2E22404722141040009AE72D /* Build configuration list for PBXProject "YYAsyncLayerDemo" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 2E22404322141040009AE72D;
+			productRefGroup = 2E22404D22141040009AE72D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2E22404B22141040009AE72D /* YYAsyncLayerDemo */,
+				2E22406322141042009AE72D /* YYAsyncLayerDemoTests */,
+				2E22406E22141042009AE72D /* YYAsyncLayerDemoUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2E22404A22141040009AE72D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E22405C22141041009AE72D /* LaunchScreen.storyboard in Resources */,
+				2E22405922141041009AE72D /* Assets.xcassets in Resources */,
+				2E224096221410CC009AE72D /* README.md in Resources */,
+				2E224095221410CC009AE72D /* LICENSE in Resources */,
+				2E22405722141040009AE72D /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2E22406222141042009AE72D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2E22406D22141042009AE72D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		10893376197F7A3545C30FC6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-YYAsyncLayerDemoUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5CACFDCADD4C1D85BD4F3D8E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-YYAsyncLayerDemo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F0C51A38296DF04EF6E85F7C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-YYAsyncLayerDemoTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2E22404822141040009AE72D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E22405422141040009AE72D /* ViewController.m in Sources */,
+				2E22411922156192009AE72D /* ZDThread.m in Sources */,
+				2E224098221410CC009AE72D /* YYSentinel.m in Sources */,
+				2E224099221410CC009AE72D /* YYTransaction.m in Sources */,
+				2E22405F22141041009AE72D /* main.m in Sources */,
+				2E224097221410CC009AE72D /* YYAsyncLayer.m in Sources */,
+				2E22405122141040009AE72D /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2E22406022141042009AE72D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E22406922141042009AE72D /* YYAsyncLayerDemoTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2E22406B22141042009AE72D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E22407422141042009AE72D /* YYAsyncLayerDemoUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2E22406622141042009AE72D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2E22404B22141040009AE72D /* YYAsyncLayerDemo */;
+			targetProxy = 2E22406522141042009AE72D /* PBXContainerItemProxy */;
+		};
+		2E22407122141042009AE72D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2E22404B22141040009AE72D /* YYAsyncLayerDemo */;
+			targetProxy = 2E22407022141042009AE72D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		2E22405522141040009AE72D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2E22405622141040009AE72D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		2E22405A22141041009AE72D /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2E22405B22141041009AE72D /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		2E22407622141042009AE72D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		2E22407722141042009AE72D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2E22407922141042009AE72D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0D93716BCDC19D9A3A315DFC /* Pods-YYAsyncLayerDemo.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = YYAsyncLayerDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = zdq.YYAsyncLayerDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2E22407A22141042009AE72D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F17EF9EC13416D32616E02D8 /* Pods-YYAsyncLayerDemo.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = YYAsyncLayerDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = zdq.YYAsyncLayerDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		2E22407C22141042009AE72D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 170AB98CDA7D1C0FC51CB28B /* Pods-YYAsyncLayerDemoTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = YYAsyncLayerDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = zdq.YYAsyncLayerDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YYAsyncLayerDemo.app/YYAsyncLayerDemo";
+			};
+			name = Debug;
+		};
+		2E22407D22141042009AE72D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C690F8B90A389DEB04994817 /* Pods-YYAsyncLayerDemoTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = YYAsyncLayerDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = zdq.YYAsyncLayerDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YYAsyncLayerDemo.app/YYAsyncLayerDemo";
+			};
+			name = Release;
+		};
+		2E22407F22141042009AE72D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = ADFC0559468BD22FE62E5856 /* Pods-YYAsyncLayerDemoUITests.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = YYAsyncLayerDemoUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = zdq.YYAsyncLayerDemoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = YYAsyncLayerDemo;
+			};
+			name = Debug;
+		};
+		2E22408022141042009AE72D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4B8D831D013D35221A82AD86 /* Pods-YYAsyncLayerDemoUITests.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = YYAsyncLayerDemoUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = zdq.YYAsyncLayerDemoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = YYAsyncLayerDemo;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2E22404722141040009AE72D /* Build configuration list for PBXProject "YYAsyncLayerDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2E22407622141042009AE72D /* Debug */,
+				2E22407722141042009AE72D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2E22407822141042009AE72D /* Build configuration list for PBXNativeTarget "YYAsyncLayerDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2E22407922141042009AE72D /* Debug */,
+				2E22407A22141042009AE72D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2E22407B22141042009AE72D /* Build configuration list for PBXNativeTarget "YYAsyncLayerDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2E22407C22141042009AE72D /* Debug */,
+				2E22407D22141042009AE72D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2E22407E22141042009AE72D /* Build configuration list for PBXNativeTarget "YYAsyncLayerDemoUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2E22407F22141042009AE72D /* Debug */,
+				2E22408022141042009AE72D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2E22404422141040009AE72D /* Project object */;
+}

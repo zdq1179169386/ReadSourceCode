@@ -113,6 +113,7 @@ typedef void (^AFURLSessionTaskCompletionHandler)(NSURLResponse *response, id re
 
 @interface AFURLSessionManagerTaskDelegate : NSObject <NSURLSessionTaskDelegate, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate>
 - (instancetype)initWithTask:(NSURLSessionTask *)task;
+//打破循环引用
 @property (nonatomic, weak) AFURLSessionManager *manager;
 //接受数据
 @property (nonatomic, strong) NSMutableData *mutableData;
@@ -448,7 +449,7 @@ static NSString * const AFNSURLSessionTaskDidSuspendNotification = @"com.alamofi
     NSAssert(NO, @"State method should never be called in the actual dummy class");
     return NSURLSessionTaskStateCanceling;
 }
-
+//替换的resume 方法
 - (void)af_resume {
     NSAssert([self respondsToSelector:@selector(state)], @"Does not respond to state");
     NSURLSessionTaskState state = [self state];
@@ -458,7 +459,7 @@ static NSString * const AFNSURLSessionTaskDidSuspendNotification = @"com.alamofi
         [[NSNotificationCenter defaultCenter] postNotificationName:AFNSURLSessionTaskDidResumeNotification object:self];
     }
 }
-
+//替换的suspend 方法
 - (void)af_suspend {
     NSAssert([self respondsToSelector:@selector(state)], @"Does not respond to state");
     NSURLSessionTaskState state = [self state];
