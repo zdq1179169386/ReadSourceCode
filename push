@@ -1,0 +1,22 @@
+#!/bin/sh
+
+function msg()
+{
+	echo -e "\033[32m$1\033[0m"
+}
+
+var=$0
+cd ${var%/*}
+
+msg 'start add'
+git add .
+msg 'start commit'
+msg '请输入提交内容:'
+read commit 
+git commit -m "$commit" 
+msg 'start pull'
+git pull 
+msg 'start push'
+git push
+msg 'finish'
+git log -3
