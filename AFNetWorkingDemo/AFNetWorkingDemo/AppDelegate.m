@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "AFNetworkActivityIndicatorManager.h"
+#import <CoreTelephony/CTCellularData.h>
+#import "AFNetworking.h"
 @interface AppDelegate ()
 
 @end
@@ -22,9 +24,53 @@
     
 //   状态栏上的菊花
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
+    if (__IPHONE_10_0) {
+        
+    }
+    [self cellularData];
     return YES;
 }
-
+- (void)cellularData{
+    CTCellularData *cellularData = [[CTCellularData alloc] init];
+    // 状态发生变化时调用
+    cellularData.cellularDataRestrictionDidUpdateNotifier = ^(CTCellularDataRestrictedState restrictedState) {
+        switch (restrictedState) {
+                case kCTCellularDataRestrictedStateUnknown:
+                NSLog(@"蜂窝移动网络状态：未知");
+                break;
+                case kCTCellularDataRestricted:
+                NSLog(@"蜂窝移动网络状态：关闭");
+                break;
+                case kCTCellularDataNotRestricted:
+                NSLog(@"蜂窝移动网络状态：开启");
+                break;
+                
+            default:
+                break;
+        }
+    };
+}
+- (void)startMonitoring{
+    AFNetworkReachabilityManager * manager = [AFNetworkReachabilityManager manager];
+    [manager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        switch (status) {
+                case AFNetworkReachabilityStatusUnknown:
+                
+                break;
+                case AFNetworkReachabilityStatusNotReachable:
+                
+                break;
+                case AFNetworkReachabilityStatusReachableViaWWAN:
+                
+                break;
+                case AFNetworkReachabilityStatusReachableViaWiFi:
+                
+                break;
+            default:
+                break;
+        }
+    }];
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

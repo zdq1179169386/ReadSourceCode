@@ -24,13 +24,17 @@
 #if TARGET_OS_IOS || TARGET_OS_TV 
 
 #import "AFAutoPurgingImageCache.h"
-
+//包装单个image 的模型类
 @interface AFCachedImage : NSObject
-
+//图片数据
 @property (nonatomic, strong) UIImage *image;
+//唯一标识
 @property (nonatomic, strong) NSString *identifier;
+//总大小
 @property (nonatomic, assign) UInt64 totalBytes;
+//最后的日期
 @property (nonatomic, strong) NSDate *lastAccessDate;
+//目前的使用的缓存
 @property (nonatomic, assign) UInt64 currentMemoryUsage;
 
 @end
@@ -67,6 +71,7 @@
 
 @interface AFAutoPurgingImageCache ()
 @property (nonatomic, strong) NSMutableDictionary <NSString* , AFCachedImage*> *cachedImages;
+//目前的使用的缓存
 @property (nonatomic, assign) UInt64 currentMemoryUsage;
 @property (nonatomic, strong) dispatch_queue_t synchronizationQueue;
 @end
@@ -119,7 +124,7 @@
 //        看之前有没有被缓存过
         AFCachedImage *previousCachedImage = self.cachedImages[identifier];
         if (previousCachedImage != nil) {
-//            有缓存过
+//            有缓存过，先减去缓存大小
             self.currentMemoryUsage -= previousCachedImage.totalBytes;
         }
 //        更新缓存的图片

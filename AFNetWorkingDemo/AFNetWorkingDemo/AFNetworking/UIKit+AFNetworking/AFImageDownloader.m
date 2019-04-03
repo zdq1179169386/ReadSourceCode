@@ -51,6 +51,7 @@
 
 @end
 
+//处理重复下载
 @interface AFImageDownloaderMergedTask : NSObject
 @property (nonatomic, strong) NSString *URLIdentifier;
 @property (nonatomic, strong) NSUUID *identifier;
@@ -169,9 +170,9 @@
         self.downloadPrioritizaton = downloadPrioritization;
         //最大的下载数
         self.maximumActiveDownloads = maximumActiveDownloads;
-//        自定义缓存
+        //自定义缓存
         self.imageCache = imageCache;
-//队列中的任务，待执行的
+        //队列中的任务，待执行的
         self.queuedMergedTasks = [[NSMutableArray alloc] init];
         //合并的任务，所有任务的字典
         self.mergedTasks = [[NSMutableDictionary alloc] init];
@@ -179,11 +180,11 @@
         self.activeRequestCount = 0;
         //用UUID来拼接名字
         NSString *name = [NSString stringWithFormat:@"com.alamofire.imagedownloader.synchronizationqueue-%@", [[NSUUID UUID] UUIDString]];
-//       串行队列,做内部生成task
+        //串行队列,做内部生成task
         self.synchronizationQueue = dispatch_queue_create([name cStringUsingEncoding:NSASCIIStringEncoding], DISPATCH_QUEUE_SERIAL);
 
         name = [NSString stringWithFormat:@"com.alamofire.imagedownloader.responsequeue-%@", [[NSUUID UUID] UUIDString]];
-//        并行队列,用来做网络请求完成的数据回调
+        //并行队列,用来做网络请求完成的数据回调
         self.responseQueue = dispatch_queue_create([name cStringUsingEncoding:NSASCIIStringEncoding], DISPATCH_QUEUE_CONCURRENT);
     }
 
@@ -212,7 +213,7 @@
     __block NSURLSessionDataTask *task = nil;
     dispatch_sync(self.synchronizationQueue, ^{
         NSString *URLIdentifier = request.URL.absoluteString;
-//        url 为空
+        //url 为空
         if (URLIdentifier == nil) {
             if (failure) {
                 NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorBadURL userInfo:nil];
@@ -271,7 +272,7 @@
 //                           并行队列处理响应
                            dispatch_async(self.responseQueue, ^{
                                __strong __typeof__(weakSelf) strongSelf = weakSelf;
- //拿到当前的task
+                     //拿到之前的task
                                AFImageDownloaderMergedTask *mergedTask = strongSelf.mergedTasks[URLIdentifier];
                                if ([mergedTask.identifier isEqual:mergedTaskIdentifier]) {
                                    //如果之前的task数组中，有这个请求的任务task，则从数组中移除
