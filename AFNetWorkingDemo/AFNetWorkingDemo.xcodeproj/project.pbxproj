@@ -33,6 +33,10 @@
 		2E29FA2F21C8CD1F00FBD7DA /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E29FA1C21C8CD1E00FBD7DA /* AFNetworkReachabilityManager.m */; };
 		2E29FA3021C8CD1F00FBD7DA /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E29FA1D21C8CD1E00FBD7DA /* AFSecurityPolicy.m */; };
 		2E5B5BD921CA389900DA5D21 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5B5BD821CA389900DA5D21 /* Person.m */; };
+		2EA564CD2255E7D8005957AB /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2EA564C62255E7D7005957AB /* 2.jpg */; };
+		2EA564CF2255E7D8005957AB /* 3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2EA564C82255E7D7005957AB /* 3.jpg */; };
+		2EA564D02255E7D8005957AB /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2EA564C92255E7D7005957AB /* 1.jpg */; };
+		2EA564D12255E7D8005957AB /* 4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2EA564CA2255E7D8005957AB /* 4.jpg */; };
 		B6E4D83D0EB840D03768F888 /* libPods-AFNetWorkingDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 642F1173FBD779E0E093D021 /* libPods-AFNetWorkingDemo.a */; };
 		C292A8BF0C7C3F7C240F7D94 /* libPods-AFNetWorkingDemoUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 652268C4A6140F7220F48B95 /* libPods-AFNetWorkingDemoUITests.a */; };
 		E35CF2BEC9AD19C9FD942238 /* libPods-AFNetWorkingDemoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 265ED7097F3C9A9CC3AAB27B /* libPods-AFNetWorkingDemoTests.a */; };
@@ -111,6 +115,10 @@
 		2E29FA1F21C8CD1E00FBD7DA /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
 		2E5B5BD721CA389900DA5D21 /* Person.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
 		2E5B5BD821CA389900DA5D21 /* Person.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
+		2EA564C62255E7D7005957AB /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpg; sourceTree = "<group>"; };
+		2EA564C82255E7D7005957AB /* 3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.jpg; sourceTree = "<group>"; };
+		2EA564C92255E7D7005957AB /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
+		2EA564CA2255E7D8005957AB /* 4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 4.jpg; sourceTree = "<group>"; };
 		33877CD93EFFD59BF2D27602 /* Pods-AFNetWorkingDemoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AFNetWorkingDemoUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AFNetWorkingDemoUITests/Pods-AFNetWorkingDemoUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		409A97ECD0448BD434D74602 /* Pods-AFNetWorkingDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AFNetWorkingDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AFNetWorkingDemo/Pods-AFNetWorkingDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		642F1173FBD779E0E093D021 /* libPods-AFNetWorkingDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AFNetWorkingDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -181,6 +189,10 @@
 				2E29F9CB21C8BFB500FBD7DA /* ViewController.m */,
 				2E5B5BD721CA389900DA5D21 /* Person.h */,
 				2E5B5BD821CA389900DA5D21 /* Person.m */,
+				2EA564C92255E7D7005957AB /* 1.jpg */,
+				2EA564C62255E7D7005957AB /* 2.jpg */,
+				2EA564C82255E7D7005957AB /* 3.jpg */,
+				2EA564CA2255E7D8005957AB /* 4.jpg */,
 				2E29F9CD21C8BFB500FBD7DA /* Main.storyboard */,
 				2E29F9D021C8BFB600FBD7DA /* Assets.xcassets */,
 				2E29F9D221C8BFB600FBD7DA /* LaunchScreen.storyboard */,
@@ -397,10 +409,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				2E29F9D421C8BFB600FBD7DA /* LaunchScreen.storyboard in Resources */,
+				2EA564CD2255E7D8005957AB /* 2.jpg in Resources */,
 				2E29F9D121C8BFB600FBD7DA /* Assets.xcassets in Resources */,
+				2EA564D02255E7D8005957AB /* 1.jpg in Resources */,
 				2E29FA2121C8CD1E00FBD7DA /* README.md in Resources */,
 				2E29FA2021C8CD1E00FBD7DA /* LICENSE in Resources */,
+				2EA564CF2255E7D8005957AB /* 3.jpg in Resources */,
 				2E29F9CF21C8BFB500FBD7DA /* Main.storyboard in Resources */,
+				2EA564D12255E7D8005957AB /* 4.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
