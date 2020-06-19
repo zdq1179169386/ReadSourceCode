@@ -382,7 +382,6 @@ static dispatch_queue_t YYLabelGetReleaseQueue() {
         });
     }
 }
-
 - (void)_initLabel {
     ((YYAsyncLayer *)self.layer).displaysAsynchronously = NO;
     self.layer.contentsScale = [UIScreen mainScreen].scale;

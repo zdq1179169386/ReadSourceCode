@@ -7,9 +7,12 @@
 //
 
 #import "ViewController.h"
+#import "AsyncDrawView.h"
 
 @interface ViewController ()
-
+{
+    AsyncDrawView * _drawView;
+}
 @end
 
 static void callBack(CFRunLoopObserverRef observer,CFRunLoopActivity activity,void * info){
@@ -20,8 +23,7 @@ static void callBack(CFRunLoopObserverRef observer,CFRunLoopActivity activity,vo
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-    [self demo2];
+    [self demo4];
 }
 - (void)demo1{
     NSLog(@"1"); // 任务1
@@ -67,4 +69,50 @@ static void callBack(CFRunLoopObserverRef observer,CFRunLoopActivity activity,vo
     CFRelease(observer);
 
 }
+- (void)demo3{
+    //1.创建目标队列
+    dispatch_queue_t targetQueue = dispatch_queue_create("test.target.queue", DISPATCH_QUEUE_SERIAL);
+    
+    //2.创建3个串行队列
+    dispatch_queue_t queue1 = dispatch_queue_create("test.1", DISPATCH_QUEUE_SERIAL);
+    dispatch_queue_t queue2 = dispatch_queue_create("test.2", DISPATCH_QUEUE_SERIAL);
+    dispatch_queue_t queue3 = dispatch_queue_create("test.3", DISPATCH_QUEUE_SERIAL);
+    
+    //3.将3个串行队列分别添加到目标队列
+    dispatch_set_target_queue(queue1, targetQueue);
+    dispatch_set_target_queue(queue2, targetQueue);
+    dispatch_set_target_queue(queue3, targetQueue);
+    
+    
+    dispatch_async(queue1, ^{
+        NSLog(@"1 in");
+        [NSThread sleepForTimeInterval:3.f];
+        NSLog(@"1 out");
+    });
+    
+    dispatch_async(queue2, ^{
+        NSLog(@"2 in");
+        [NSThread sleepForTimeInterval:2.f];
+        NSLog(@"2 out");
+    });
+    dispatch_async(queue3, ^{
+        NSLog(@"3 in");
+        [NSThread sleepForTimeInterval:1.f];
+        NSLog(@"3 out");
+    });
+}
+- (void)demo4
+{
+    _drawView = [[AsyncDrawView alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
+    _drawView.backgroundColor = [UIColor redColor];
+    [self.view addSubview:_drawView];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    _drawView.frame = CGRectMake(100, 200, 100, 100);
+    [_drawView setNeedsDisplay];
+}
+
+
 @end

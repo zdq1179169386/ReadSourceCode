@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		021BBD5FDF214D3DAEB97699 /* libPods-YYAsyncLayerDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EDBBCB0064A819F80A21DD98 /* libPods-YYAsyncLayerDemo.a */; };
 		0E5B3D9733A79D410A0BE71D /* libPods-YYAsyncLayerDemoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A9548E11FC1B8D10021271 /* libPods-YYAsyncLayerDemoTests.a */; };
+		2E18755824188E1D000BCAA9 /* AsyncDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E18755724188E1D000BCAA9 /* AsyncDrawView.m */; };
+		2E18755B24188E7E000BCAA9 /* MyLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E18755A24188E7E000BCAA9 /* MyLayer.m */; };
 		2E22405122141040009AE72D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E22405022141040009AE72D /* AppDelegate.m */; };
 		2E22405422141040009AE72D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E22405322141040009AE72D /* ViewController.m */; };
 		2E22405722141040009AE72D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E22405522141040009AE72D /* Main.storyboard */; };
@@ -46,6 +48,10 @@
 /* Begin PBXFileReference section */
 		0D93716BCDC19D9A3A315DFC /* Pods-YYAsyncLayerDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YYAsyncLayerDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YYAsyncLayerDemo/Pods-YYAsyncLayerDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		170AB98CDA7D1C0FC51CB28B /* Pods-YYAsyncLayerDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YYAsyncLayerDemoTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YYAsyncLayerDemoTests/Pods-YYAsyncLayerDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
+		2E18755624188E1D000BCAA9 /* AsyncDrawView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AsyncDrawView.h; sourceTree = "<group>"; };
+		2E18755724188E1D000BCAA9 /* AsyncDrawView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AsyncDrawView.m; sourceTree = "<group>"; };
+		2E18755924188E7E000BCAA9 /* MyLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyLayer.h; sourceTree = "<group>"; };
+		2E18755A24188E7E000BCAA9 /* MyLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyLayer.m; sourceTree = "<group>"; };
 		2E22404C22141040009AE72D /* YYAsyncLayerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YYAsyncLayerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E22404F22141040009AE72D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2E22405022141040009AE72D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -146,6 +152,10 @@
 				2E22405A22141041009AE72D /* LaunchScreen.storyboard */,
 				2E22405D22141041009AE72D /* Info.plist */,
 				2E22405E22141041009AE72D /* main.m */,
+				2E18755924188E7E000BCAA9 /* MyLayer.h */,
+				2E18755A24188E7E000BCAA9 /* MyLayer.m */,
+				2E18755624188E1D000BCAA9 /* AsyncDrawView.h */,
+				2E18755724188E1D000BCAA9 /* AsyncDrawView.m */,
 			);
 			path = YYAsyncLayerDemo;
 			sourceTree = "<group>";
@@ -418,7 +428,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E18755B24188E7E000BCAA9 /* MyLayer.m in Sources */,
 				2E22405422141040009AE72D /* ViewController.m in Sources */,
+				2E18755824188E1D000BCAA9 /* AsyncDrawView.m in Sources */,
 				2E22411922156192009AE72D /* ZDThread.m in Sources */,
 				2E224098221410CC009AE72D /* YYSentinel.m in Sources */,
 				2E224099221410CC009AE72D /* YYTransaction.m in Sources */,
